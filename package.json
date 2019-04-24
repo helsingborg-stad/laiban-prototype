@@ -1,7 +1,7 @@
 {
-    "name": "new-project",
+    "name": "laiban-prototype",
     "version": "0.1.0",
-    "description": "Digital assistant for kids in kindergarten. This project is a prototype and was meant for testing purpose only.",
+    "description": "Digital assistant for kids in kindergarten. This project is a prototype and is meant for testing purpose only.",
     "author": "Nikolas Ramstedt",
     "license": "MIT",
     "scripts": {
