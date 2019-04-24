@@ -28,13 +28,6 @@ module.exports = merge(common, {
         noEmitOnErrors: true,
         checkWasmTypes: true,
         minimize: true,
-        minimizer: [
-            new UglifyJsPlugin({
-                cache: true,
-                parallel: true,
-                sourceMap: true,
-            }),
-            new OptimizeCSSAssetsPlugin(),
-        ],
+        minimizer: [new OptimizeCSSAssetsPlugin()],
     },
 });
