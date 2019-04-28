@@ -1,0 +1,67 @@
+@import 'mixins';
+
+$base: 8px;
+
+$backgroundColor: #D43232;
+$backgroundColorSecondary: #F7E7ED;
+$bodyBackground: white;
+
+body {
+    margin: 0;
+    background: $bodyBackground;
+}
+
+.screen-size {
+    width: 100%;
+    min-height: 100vh;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.container {
+    margin: auto;
+    width: 100%;
+    max-width: $base * 64;
+}
+
+.grid-container {
+    padding-left: $base * 2;
+    padding-right: $base * 2;
+}
+
+.chat-bubble {
+    background: white;
+    padding: $base * 4;
+    border-radius: $base * 4;
+    margin-top: $base * 6;
+}
+
+.cover {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.labian-test-gif {
+    background-image: url('../images/test.gif');
+}
+
+.scene {
+    background-color: $backgroundColor;
+}
+
+.scene__header {
+    height: $base * 16;
+    background-color: $backgroundColorSecondary;
+}
+
+.navigation-icon {
+    @include aspect-ratio(1, 1);
+
+    background: $backgroundColorSecondary;
+    border-radius: 100%;
+    max-width: $base * 23;
+    margin: auto;
+}
