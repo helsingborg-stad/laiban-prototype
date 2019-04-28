@@ -20,7 +20,7 @@ module.exports = {
         'func-names': 0,
         'object-shorthand': 0,
         'newline-after-var': 0,
-        'no-console': 'warn',
+        'no-console': 0,
         'no-invalid-this': 0,
         'object-curly-spacing': [2, 'always'],
         'prefer-arrow-callback': 0,
