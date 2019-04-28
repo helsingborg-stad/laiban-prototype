@@ -12,6 +12,7 @@ const generateHTML = (
     pageTitle = 'Lajban Prototype',
     meta = {
         viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no',
+        'apple-mobile-web-app-capable': 'yes',
     }
 ) =>
     new HtmlWebpackPlugin({
