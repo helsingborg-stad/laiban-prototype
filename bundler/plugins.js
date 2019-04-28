@@ -11,7 +11,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const generateHTML = (
     pageTitle = 'Lajban Prototype',
     meta = {
-        viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no',
+        viewport: 'width=device-width, user-scalable=no',
         'apple-mobile-web-app-capable': 'yes',
     }
 ) =>
