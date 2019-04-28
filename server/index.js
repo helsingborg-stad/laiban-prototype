@@ -32,7 +32,6 @@ app.post('/api/v1/text2Speech', (request, response) => {
     }
 
     googleText2Speech(text).then(result => {
-        result.status = 'success';
         response.json(result);
     });
 });

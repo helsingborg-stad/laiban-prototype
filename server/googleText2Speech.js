@@ -49,6 +49,7 @@ const googleText2Speech = async text => {
             return response.json();
         })
         .then(json => {
+            json.status = 'success';
             return json;
         });
 };
