@@ -66,3 +66,4 @@ public/
 !.editorconfig
 !.prettierrc
 !.eslintrc.js
+!.env-example
