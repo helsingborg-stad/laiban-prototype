@@ -23,7 +23,7 @@ module.exports = {
      * ------------------------------------------------------------------------
      */
     plugins: [
-        generateHTML('ES2018 Boiler'),
+        generateHTML('Laiban Prototype'),
         generateManifestJson(),
         cleanDistFolder(),
         enableHMR(),
