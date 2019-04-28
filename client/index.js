@@ -4,15 +4,17 @@ import '@babel/polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'typeface-roboto';
-import { HashRouter, withRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import App from './components/App.jsx';
 
-class Application {
+import './assets/sass/styles.scss';
+
+class Bootstrap {
     constructor() {
         this.init();
     }
 
-    init = async () => {
+    init = () => {
         const element = document.createElement('div');
         element.setAttribute('id', 'app');
         document.body.appendChild(element);
@@ -25,4 +27,4 @@ class Application {
     };
 }
 
-new Application();
+new Bootstrap();

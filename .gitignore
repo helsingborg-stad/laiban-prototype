@@ -55,6 +55,7 @@ todolist.txt
 
 # ignore dist folder
 dist/
+public/
 
 # -------------------------
 # BEGIN Whitelisted Files

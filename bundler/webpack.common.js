@@ -16,7 +16,7 @@ module.exports = {
      * ------------------------------------------------------------------------
      */
     entry: {
-        app: './src/index.js',
+        app: './client/index.js',
     },
     /**
      * Plugins can solve problems, try add some
@@ -47,6 +47,6 @@ module.exports = {
     output: {
         filename: devMode ? '[name].bundle.js' : '[name].[hash:8].js',
         chunkFilename: devMode ? '[id].js' : '[id].[hash:8].js',
-        path: path.resolve(process.cwd(), 'dist'),
+        path: path.resolve(process.cwd(), 'public'),
     },
 };
