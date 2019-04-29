@@ -3,6 +3,8 @@ import Grid from '@material-ui/core/Grid';
 
 import getForecast from '../service/getForecast';
 
+import Bubble from './shared/Bubble.jsx';
+
 // Images
 import raincoat from '../assets/images/clothes/raincoat.png';
 import rainpants from '../assets/images/clothes/pants-rain.png';
@@ -47,8 +49,7 @@ class Clothing extends Component {
                     {clothes.length > 0
                         ? clothes.map(garment => (
                               <Grid item xs={12} key={garment.text}>
-                                  <img src={garment.image} />
-                                  {garment.text}
+                                  <Bubble icon={garment.image}>{garment.text}</Bubble>
                               </Grid>
                           ))
                         : null}
