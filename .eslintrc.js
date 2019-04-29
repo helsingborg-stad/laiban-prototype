@@ -36,5 +36,6 @@ module.exports = {
         radix: 0,
         'no-multi-assign': 0,
         'no-alert': 0,
+        "no-use-before-define": ["error", { "variables": false }],
     },
 };
