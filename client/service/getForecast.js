@@ -30,7 +30,7 @@ const getForecast = async (lon = '12.694454', lat = '56.046411') => {
             );
 
             let rain = false;
-            let degrees = 0;
+            let temprature = 0;
 
             if (closestForecast.length === 1) {
                 const pcat = closestForecast[0].parameters.filter(
@@ -45,10 +45,10 @@ const getForecast = async (lon = '12.694454', lat = '56.046411') => {
                     rain = true;
                 }
 
-                degrees = t.values[0];
+                temprature = t.values[0];
             }
 
-            return { rain: rain, degrees: degrees };
+            return { rain: rain, temprature: temprature };
         });
 };
 
