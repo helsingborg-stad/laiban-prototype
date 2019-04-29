@@ -11,6 +11,7 @@ import Clothing from './Clothing.jsx';
 import Clock from './Clock.jsx';
 import Lunch from './Lunch.jsx';
 import Weather from './Weather.jsx';
+import Calendar from './Calendar.jsx';
 
 class App extends Component {
     state = { disableSpeech: false };
@@ -63,6 +64,14 @@ class App extends Component {
                     render={() => (
                         <Scene message={'Vad är klockan?'} disableSpeech={disableSpeech}>
                             <Clock />
+                        </Scene>
+                    )}
+                />
+                <Route
+                    path="/calendar"
+                    render={() => (
+                        <Scene message={'Vilken dag är det?'} disableSpeech={disableSpeech}>
+                            <Calendar />
                         </Scene>
                     )}
                 />
