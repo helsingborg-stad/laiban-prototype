@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import sayThis from '../../helper/sayThis';
 
 import tinyLaiban from '../../assets/images/laiban/laiban-figur-liten.png';
+import Bubble from './Bubble.jsx';
 
 export default class Scene extends Component {
     static propTypes = {
@@ -37,23 +38,18 @@ export default class Scene extends Component {
         const { children, message } = this.props;
 
         return (
-            <div className="screen-size scene">
-                <div className="scene__header">
-                    <div className="container">
-                        <img className="laiban-tiny" src={tinyLaiban} />
-                    </div>
+            <div className="screen-size">
+                <div className="header container-small relative">
+                    <img className="laiban-tiny" src={tinyLaiban} />
                 </div>
-                <div className="scene__body">
-                    <div className="container">
-                        <div className="grid-container">
-                            <Grid container spacing={32}>
-                                <Grid item xs={12}>
-                                    <div className="scene__message chat-bubble">{message}</div>
-                                </Grid>
-                            </Grid>
-                        </div>
-                        {typeof children !== 'undefined' ? children : null}
+                <div className="content">
+                    <div className="container-small">
+                        <Bubble speechBubble>{message}</Bubble>
                     </div>
+
+                    {typeof children !== 'undefined' ? (
+                        <div className="container">{children}</div>
+                    ) : null}
                 </div>
             </div>
         );
