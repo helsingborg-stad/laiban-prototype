@@ -13,7 +13,7 @@ import Lunch from './Lunch.jsx';
 import Weather from './Weather.jsx';
 
 class App extends Component {
-    state = { disableSpeech: true };
+    state = { disableSpeech: false };
 
     render() {
         const { location } = this.props;
