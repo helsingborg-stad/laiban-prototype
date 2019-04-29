@@ -2,8 +2,8 @@
 
 $base: 8px;
 
-$backgroundColor: #D43232;
-$backgroundColorSecondary: #F7E7ED;
+$backgroundColor: #d43232;
+$backgroundColorSecondary: #f7e7ed;
 $bodyBackground: white;
 
 body {
@@ -36,6 +36,15 @@ body {
     padding: $base * 4;
     border-radius: $base * 4;
     margin-top: $base * 6;
+    position: relative;
+
+    &:before {
+        @include arrow('up', 24px, white);
+        content: '';
+        position: absolute;
+        left: 64px;
+        bottom: 100%;
+    }
 }
 
 .cover {
@@ -64,4 +73,10 @@ body {
     border-radius: 100%;
     max-width: $base * 23;
     margin: auto;
+}
+
+.home-button {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
 }
