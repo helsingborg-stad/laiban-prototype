@@ -6,6 +6,10 @@ $backgroundColor: #d43232;
 $backgroundColorSecondary: #f7e7ed;
 $bodyBackground: white;
 
+html {
+    @include antialias();
+}
+
 body {
     margin: 0;
     background: $bodyBackground;
