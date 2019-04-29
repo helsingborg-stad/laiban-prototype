@@ -4,6 +4,7 @@ import { hot } from 'react-hot-loader';
 import { withRouter, BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 import Scene from './shared/Scene.jsx';
+import Fab from './shared/Fab.jsx';
 
 import Intro from './Intro.jsx';
 import Navigation from './Navigation.jsx';
@@ -12,6 +13,9 @@ import Clock from './Clock.jsx';
 import Lunch from './Lunch.jsx';
 import Weather from './Weather.jsx';
 import Calendar from './Calendar.jsx';
+
+import HomeIcon from '../assets/images/home-white.png';
+import playIcon from '../assets/images/play-white.png';
 
 class App extends Component {
     state = { disableSpeech: false };
@@ -76,12 +80,14 @@ class App extends Component {
                     )}
                 />
 
-                {typeof location.pathname !== 'undefined' &&
-                !['/', '/navigation'].includes(location.pathname) ? (
-                    <div className="home-button">
-                        <Link to="/navigation">Home</Link>
+                <div className="footer">
+                    <div className="container">
+                        {typeof location.pathname !== 'undefined' &&
+                        !['/', '/navigation'].includes(location.pathname) ? (
+                            <Fab to="/navigation" icon={HomeIcon} color="danger" />
+                        ) : null}
                     </div>
-                ) : null}
+                </div>
             </div>
         );
     }
