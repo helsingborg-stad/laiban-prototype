@@ -4,6 +4,8 @@ import Grid from '@material-ui/core/Grid';
 
 import sayThis from '../../helper/sayThis';
 
+import tinyLaiban from '../../assets/images/laiban/laiban-figur-liten.png';
+
 export default class Scene extends Component {
     static propTypes = {
         message: PropTypes.string.isRequired,
@@ -36,7 +38,11 @@ export default class Scene extends Component {
 
         return (
             <div className="screen-size scene">
-                <div className="scene__header" />
+                <div className="scene__header">
+                    <div className="container">
+                        <img className="laiban-tiny" src={tinyLaiban} />
+                    </div>
+                </div>
                 <div className="scene__body">
                     <div className="container">
                         <div className="grid-container">
