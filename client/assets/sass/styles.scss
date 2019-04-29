@@ -27,6 +27,11 @@ html {
 body {
     margin: 0;
     background: $bodyBackground;
+    font-family: Arial Rounded MT Bold,Helvetica Rounded,Arial,sans-serif;
+}
+
+a {
+    text-decoration: none;
 }
 
 .screen-size {
