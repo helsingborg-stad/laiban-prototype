@@ -21,35 +21,32 @@ const getForecast = async (lon = '12.694454', lat = '56.046411') => {
         })
         .then(json => {
             const currentDate = new Date();
-
-            // console.log('TCL: getForecast -> currentDate', currentDate);
-
             const currentDateFormatted = dateFns.format(currentDate, 'YYYYMMDDThhmmssZ', {
                 locale: sv,
             });
-
-            // console.log('TCL: getForecast -> currentDateFormatted', currentDateFormatted);
-
             const timeSeries = json.timeSeries.map(item => item.validTime);
-            // console.log('TCL: getForecast -> timeSeries', timeSeries);
-
-            const closestTime = dateFns.closestTo(currentDateFormatted, timeSeries);
-            // console.log('TCL: getForecast -> closestTime', closestTime);
+            const closestForecast = json.timeSeries.filter(item =>
+                dateFns.isEqual(dateFns.closestTo(currentDateFormatted, timeSeries), item.validTime)
+            );
 
             let rain = false;
             let degrees = 0;
 
-            json.timeSeries.forEach(item => {
-                if (dateFns.isEqual(closestTime, item.validTime)) {
-                    rain = item.parameters[15].values[0] === 3;
-                    // console.log('TCL: getForecast -> rain', rain);
+            if (closestForecast.length === 1) {
+                const pcat = closestForecast[0].parameters.filter(
+                    paramItem => paramItem.name === 'pcat'
+                )[0];
 
-                    degrees = item.parameters[1].values[0];
-                    // console.log('TCL: getForecast -> degrees', degrees);
-                    degrees = Math.round(degrees);
-                    // console.log('TCL: getForecast -> degreesRounded', degreesRounded);
+                const t = closestForecast[0].parameters.filter(
+                    paramItem => paramItem.name === 't'
+                )[0];
+
+                if (pcat.level === 3) {
+                    rain = true;
                 }
-            });
+
+                degrees = t.values[0];
+            }
 
             return { rain: rain, degrees: degrees };
         });
