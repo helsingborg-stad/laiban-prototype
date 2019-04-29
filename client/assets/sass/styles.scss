@@ -6,6 +6,20 @@ $backgroundColor: #22A6B3;
 $backgroundColorSecondary: #F0F0F0;
 $bodyBackground: white;
 
+
+$font-size-large: 32px;
+$font-size-medium: 21px;
+
+%text-large {
+    font-size: $font-size-large;
+    line-height: 1.2;
+}
+
+%text-medium {
+    font-size: $font-size-medium;
+    line-height: 1.2;
+}
+
 html {
     @include antialias();
 }
