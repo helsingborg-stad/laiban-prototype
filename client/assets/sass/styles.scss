@@ -71,14 +71,14 @@ a {
     }
 }
 
-.cover {
-    background-size: cover;
+.laiban {
+    background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
 }
 
-.labian-test-gif {
-    background-image: url('../images/test.gif');
+.labian-idle {
+    background-image: url('../images/look.gif');
 }
 
 .scene {

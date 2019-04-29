@@ -5,7 +5,7 @@ export default class Intro extends Component {
     render() {
         return (
             <Link to="/navigation">
-                <div className="screen-size laiban labian-test-gif">
+                <div className="screen-size laiban labian-idle">
                     <span />
                 </div>
             </Link>
