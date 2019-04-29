@@ -55,8 +55,9 @@ a {
 }
 
 .chat-bubble {
+    @extend %text-large;
     background: white;
-    padding: $base * 4;
+    padding: $base * 4 $base * 6;
     border-radius: $base * 4;
     margin-top: $base * 6;
     position: relative;
@@ -87,15 +88,36 @@ a {
 .scene__header {
     height: $base * 16;
     background-color: $backgroundColorSecondary;
+    position: relative;
+}
+
+.laiban-tiny {
+    position: absolute;
+    bottom: 0;
 }
 
 .navigation-icon {
-    @include aspect-ratio(1, 1);
-
+    display: inline-block;
     background: $backgroundColorSecondary;
-    border-radius: 100%;
-    max-width: $base * 23;
-    margin: auto;
+    border-radius: $base * 5;
+    padding: $base * 3;
+    border: solid $base white;
+    box-shadow: 0 $base * 4 $base * 6 0 rgba(0,0,0,0.30);
+    
+    img {
+        height: auto;
+        width: 100%;
+        max-width: $base * 12;
+    }
+}
+
+.navigation-content {
+    @extend %text-medium;
+    color: white;
+}
+
+.navigation-icon + .navigation-content {
+    margin-top: $base * 3;
 }
 
 .home-button {
