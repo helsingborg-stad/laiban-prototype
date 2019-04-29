@@ -2,21 +2,36 @@
 
 $base: 8px;
 
-$backgroundColor: #22A6B3;
-$backgroundColorSecondary: #F0F0F0;
-$bodyBackground: white;
+$gray: #E9EEEE;
+$white: #ffff;
 
+$colorDanger: #FF4757;
+$colorSuccess: #0CDE17;
 
-$font-size-large: 32px;
-$font-size-medium: 21px;
+$bodyBackground: #F0F0F0;
+$contentBackground: #22A6B3;
+
+%border {
+    border: solid $base white;
+}
+
+%shadow {
+    box-shadow: 0 $base * 4 $base * 6 0 rgba(0,0,0,0.30);
+}
+
+%text-xl {
+    font-size: 112px;
+    line-height: 1;
+}
+
 
 %text-large {
-    font-size: $font-size-large;
+    font-size: 32px;
     line-height: 1.2;
 }
 
 %text-medium {
-    font-size: $font-size-medium;
+    font-size: 21px;
     line-height: 1.2;
 }
 
@@ -27,78 +42,49 @@ html {
 body {
     margin: 0;
     background: $bodyBackground;
-    font-family: Arial Rounded MT Bold,Helvetica Rounded,Arial,sans-serif;
+    font-family: Arial Rounded MT Bold,Helvetica Rounded, Arial,sans-serif;
 }
 
 a {
     text-decoration: none;
 }
 
-.screen-size {
-    width: 100%;
-    min-height: 100vh;
+.header {
+    height: $base * 16;
+    position: relative;
 }
 
-.text-center {
-    text-align: center;
+.content {
+    background-color: $contentBackground;
+    padding-top: $base * 9;
+    min-height: calc(100vh - #{$base * 16});
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: $base * 8;
+    width: 100%;
 }
 
 .container {
     margin: auto;
     width: 100%;
-    max-width: $base * 64;
+    max-width: 635px;
+}
+
+.container-small {
+    @extend .container;
+    max-width: 526px;
 }
 
 .grid-container {
-    padding-left: $base * 2;
-    padding-right: $base * 2;
+    padding: $base * 2;
 }
 
-.chat-bubble {
-    @extend %text-large;
-    background: white;
-    padding: $base * 4 $base * 6;
-    border-radius: $base * 4;
-    margin-top: $base * 6;
-    position: relative;
-
-    &:before {
-        @include arrow('up', 24px, white);
-        content: '';
-        position: absolute;
-        left: 64px;
-        bottom: 100%;
-    }
-}
-
-.laiban {
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-.labian-idle {
-    background-image: url('../images/look.gif');
-}
-
-.scene {
-    background-color: $backgroundColor;
-}
-
-.scene__header {
-    height: $base * 16;
-    background-color: $backgroundColorSecondary;
-    position: relative;
-}
-
-.laiban-tiny {
-    position: absolute;
-    bottom: 0;
-}
-
-.navigation-icon {
+.menu-icon {
     display: inline-block;
-    background: $backgroundColorSecondary;
+    background: $gray;
     border-radius: $base * 5;
     padding: $base * 3;
     border: solid $base white;
@@ -111,17 +97,154 @@ a {
     }
 }
 
-.navigation-content {
+.menu-content {
     @extend %text-medium;
     color: white;
 }
 
-.navigation-icon + .navigation-content {
+.menu-icon + .menu-content {
     margin-top: $base * 3;
 }
 
-.home-button {
-    position: fixed;
-    bottom: 24px;
-    left: 24px;
+.fab {
+    @extend %border, %shadow;
+    background-color: $gray;
+    color: white;
+    padding: $base * 2;
+    border-radius: 100%;
+    display: inline-block;
+}
+
+.fab__icon {
+    width: 48px;
+    height: auto;
+    display: inline;
+}
+
+.fab--extended {
+    @extend %text-large;
+    padding: $base * 2 $base * 5;
+    line-height: 1;
+    border-radius: $base * 6;
+}
+
+.fab--success {
+    background-color: $colorSuccess;
+}
+
+.fab--danger {
+    background-color: $colorDanger;
+}
+
+.bubble {
+    @extend %text-large;
+    display: flex;
+    align-items: center;
+    background: $white;
+    padding: $base * 3 $base * 6;
+    border-radius: $base * 4;
+    position: relative;
+}
+
+.bubble__icon {
+    margin-right: $base * 5;
+    width: 100%;
+    max-width: 80px;
+    height: auto;
+}
+
+.speech-bubble {
+    @extend .bubble;
+    padding-top: $base * 4;
+    padding-bottom: $base * 4;
+    &:before {
+        @include arrow('up', 24px, $white);
+        content: '';
+        position: absolute;
+        left: 64px;
+        bottom: 100%;
+    }
+}
+
+.laiban-large {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.labian-idle {
+    background-image: url('../images/look.gif');
+}
+
+.laiban-tiny {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.symbol {
+    display: inline-block;
+    padding: $base * 7;
+    background-color: $white;
+    position: relative;
+    border-radius: 100%,
+}
+
+.symbol__date {
+    @extend %text-xl;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    margin-top: $base * 3;
+}
+
+.symbol__icon {
+    width: 100%;
+    height: auto;
+    max-width: 256px;
+    display: block;
+}
+
+.margin-auto {
+    margin: auto;
+}
+
+.margin-left-auto {
+    margin-left: auto;
+}
+
+.margin-right-auto {
+    margin-right: auto;
+}
+
+.z-top {
+    z-index: 1000;
+}
+
+.z-middle {
+    z-index: 500;
+}
+
+.z-bottom {
+    z-index: 1;
+}
+
+.screen-size {
+    width: 100%;
+    min-height: 100vh;
+}
+
+.screen-float {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.relative {
+    position: relative;
 }
