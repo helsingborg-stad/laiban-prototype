@@ -45,8 +45,6 @@ class App extends Component {
                                     showMessage={true}
                                     disableSpeech={disableSpeech}
                                 >
-                                    <Speech text="Hello World" />
-
                                     <Home />
                                 </Scene>
                             )}
