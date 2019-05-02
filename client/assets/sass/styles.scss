@@ -3,6 +3,7 @@
 $base: 8px;
 
 $gray: #E9EEEE;
+$gray2: #CCCCCC;
 $white: #ffff;
 
 $colorDanger: #FF4757;
@@ -10,6 +11,9 @@ $colorSuccess: #0CDE17;
 
 $bodyBackground: #F0F0F0;
 $contentBackground: #22A6B3;
+
+// Clock
+@import 'clock';
 
 %border {
     border: solid $base white;

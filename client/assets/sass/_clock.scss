@@ -1,0 +1,97 @@
+$indicator-cover-size: 5.5%;
+
+.clock-container {
+    position: relative;
+    width: 408px;
+    overflow: hidden;
+    background: #fff;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    
+    &.styling{
+      border-radius: 50%;
+      min-width: 100px;
+    }
+  
+    &:before {
+      content: "";
+      display: block;
+      padding-top: 100%;
+    }
+  }
+  
+  .clock-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    .background-numbers {
+      position: absolute;
+      width: 90%;
+      height: 90%;
+      top: 5%;
+      left: 5%;
+      z-index: 1;
+      .numbers {
+        fill: black;
+      }
+    }
+  
+    .indicator {
+      border-radius: 10px;
+      transform-origin: bottom;
+      outline: 1px solid transparent; // Firefox fix on rotation
+      position: absolute;
+      bottom: 50%;
+  
+      &.seconds-indicator {
+        width: 0.5%;
+        height: 37.5%;
+        z-index: 2;
+        background-color: #dfc48c;
+        &.transition-effect {
+        }
+      }
+  
+      &.minutes-indicator {
+        width: 2.5%;
+        height: 35%;
+        z-index: 3;
+        background-color: $gray2;
+        &.transition-effect {
+        }
+      }
+  
+      &.hours-indicator {
+        width: 3%;
+        height: 24.5%;
+        z-index: 4;
+        background-color: $colorDanger;
+        &.transition-effect {
+        }
+      }
+    }
+  
+    .indicator-cover {
+      position: absolute;
+      bottom: 50% - ($indicator-cover-size / 2); /*(50% - (3% /2)) */
+      border-radius: 50%;
+      width: $indicator-cover-size;
+      height: $indicator-cover-size;
+      background-color: #AAAAAA;
+      z-index: 5;
+    }
+  }
+  
+  .digital {
+    margin-top: 50px;
+    text-align: center;
+    font-size: 20px;
+    color: black;
+  }

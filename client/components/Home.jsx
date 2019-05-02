@@ -18,7 +18,7 @@ export default class Home extends Component {
                 <Menu item to={'/lunch'} icon={lunchIcon}>
                     Vad blir det för mat idag?
                 </Menu>
-                <Menu item to={'/clock'} icon={clockIcon}>
+                <Menu item to={'/time'} icon={clockIcon}>
                     Vad är klockan?
                 </Menu>
                 <Menu item to={'/calendar'} icon={dayIcon}>

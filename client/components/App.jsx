@@ -7,11 +7,12 @@ import Grid from '@material-ui/core/Grid';
 import dateFns from 'date-fns';
 import Scene from './shared/Scene.jsx';
 import Fab from './shared/Fab.jsx';
+import Speech from './shared/Speech.jsx';
 
 import Intro from './Intro.jsx';
 import Home from './Home.jsx';
 import Clothing from './Clothing.jsx';
-import Clock from './Clock.jsx';
+import Time from './Time.jsx';
 import Lunch from './Lunch.jsx';
 import Weather from './Weather.jsx';
 import Calendar from './Calendar.jsx';
@@ -44,6 +45,8 @@ class App extends Component {
                                     showMessage={true}
                                     disableSpeech={disableSpeech}
                                 >
+                                    <Speech text="Hello World" />
+
                                     <Home />
                                 </Scene>
                             )}
@@ -79,13 +82,13 @@ class App extends Component {
                             )}
                         />
                         <Route
-                            path="/clock"
+                            path="/time"
                             render={() => (
                                 <Scene
                                     message={`Klockan är ${dateFns.format(new Date(), 'HH:mm')}`}
                                     disableSpeech={disableSpeech}
                                 >
-                                    <Clock />
+                                    <Time />
                                 </Scene>
                             )}
                         />
