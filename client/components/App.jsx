@@ -92,9 +92,9 @@ class App extends Component {
                         <Route
                             path="/calendar"
                             render={() => (
-                                <Scene message={'Vilken dag är det?'} disableSpeech={disableSpeech}>
-                                    <Calendar />
-                                </Scene>
+                                <div>
+                                    <Calendar disableSpeech={disableSpeech} />
+                                </div>
                             )}
                         />
                     </main>
