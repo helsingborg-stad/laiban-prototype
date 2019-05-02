@@ -4,6 +4,7 @@ import { hot } from 'react-hot-loader';
 import { withRouter, BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 import Grid from '@material-ui/core/Grid';
+import dateFns from 'date-fns';
 import Scene from './shared/Scene.jsx';
 import Fab from './shared/Fab.jsx';
 
@@ -80,7 +81,10 @@ class App extends Component {
                         <Route
                             path="/clock"
                             render={() => (
-                                <Scene message={'Vad är klockan?'} disableSpeech={disableSpeech}>
+                                <Scene
+                                    message={`Klockan är ${dateFns.format(new Date(), 'HH:mm')}`}
+                                    disableSpeech={disableSpeech}
+                                >
                                     <Clock />
                                 </Scene>
                             )}
