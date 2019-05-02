@@ -33,15 +33,17 @@ const getForecast = async (lon = '12.694454', lat = '56.046411') => {
             let temprature = 0;
 
             if (closestForecast.length === 1) {
+                // Precipitation Category (Rain, Snow etc)
                 const pcat = closestForecast[0].parameters.filter(
                     paramItem => paramItem.name === 'pcat'
                 )[0];
 
+                // Air Temprature
                 const t = closestForecast[0].parameters.filter(
                     paramItem => paramItem.name === 't'
                 )[0];
 
-                if (pcat.level === 3) {
+                if (pcat.level !== 0) {
                     rain = true;
                 }
 
