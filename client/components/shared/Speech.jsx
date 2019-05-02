@@ -31,9 +31,12 @@ export default class Speech extends Component {
 
     componentWillUnmount() {
         const { audio } = this.state;
+
+        // Pause audio
         audio.pause();
         audio.currentTime = 0;
 
+        // Remove Audio object
         this.setState({ audio: '' });
     }
 
