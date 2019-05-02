@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import text2Speech from '../../service/text2Speech';
-
 export default class Speech extends Component {
     state = {
         audio: new Audio(),
@@ -44,3 +42,27 @@ export default class Speech extends Component {
         return <div />;
     }
 }
+
+const text2Speech = async text => {
+    const url = '/api/v1/text2speech';
+    const params = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            text: text,
+        }),
+    };
+
+    return fetch(url, params)
+        .then(response => {
+            // console.log(response);
+            return response.json();
+        })
+        .then(json => {
+            // console.log(json);
+
+            return json;
+        });
+};

@@ -6,13 +6,13 @@ import Bubble from './Bubble.jsx';
 
 export default class Manuscript extends Component {
     state = {
-        queue: this.props.content,
+        queue: Object.create(this.props.content),
         audioPiece: '',
         pieces: [],
     };
 
     static propTypes = {
-        content: PropTypes.arrayOf(PropTypes.string),
+        content: PropTypes.array,
         render: PropTypes.func,
         onEnd: PropTypes.func,
         disableSpeech: PropTypes.bool,

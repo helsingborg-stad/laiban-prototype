@@ -10,6 +10,8 @@ export default class Resource extends Component {
         render: PropTypes.func.isRequired,
         headers: PropTypes.object,
         body: PropTypes.object,
+        onMount: PropTypes.func,
+        onUnmount: PropTypes.func,
     };
 
     static defaultProps = {
@@ -20,7 +22,12 @@ export default class Resource extends Component {
     };
 
     componentDidMount() {
-        const { endpoint, method, render, headers, body } = this.props;
+        const { endpoint, method, headers, body, onMount } = this.props;
+
+        if (typeof onMount !== 'undefined') {
+            onMount();
+        }
+
         const params = {};
 
         params.method = method;
@@ -38,6 +45,14 @@ export default class Resource extends Component {
             .then(json => {
                 this.setState({ data: json });
             });
+    }
+
+    componentWillUnmount() {
+        const { onUnmount } = this.props;
+
+        if (typeof onUnmount !== 'undefined') {
+            onUnmount();
+        }
     }
 
     render() {

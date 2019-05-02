@@ -7,7 +7,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 
-const { googleText2Speech } = require('./googleText2Speech');
+const { googleText2Speech } = require('./service/googleText2Speech');
+const { getForecast } = require('./service/getForecast');
+const { todaysLunch } = require('./lib/todaysLunch');
+const { weekDay } = require('./lib/weekDay');
 
 const app = express();
 
@@ -18,9 +21,35 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Static assets
 app.use(express.static(`${process.cwd()}/public`));
 
-// Endpoints
+// Static
 app.get('/', (request, response) => {
     response.sendFile(path.join(`${process.cwd()}/public/index.html`));
+});
+
+// API Endpoints
+app.get('/api/v1/lunch', (request, response) => {
+    response.json({ todaysLunch: todaysLunch() });
+});
+
+app.get('/api/v1/weekday', (request, response) => {
+    response.json({ weekDay: weekDay() });
+});
+
+app.get('/api/v1/clothing', (request, response) => {
+    getForecast().then(forecast => {
+        if (forecast.rain) {
+            response.json({ weather: 'rain', weatherString: 'Det regnar ute' });
+            return;
+        }
+
+        if (forecast.temprature > 15) {
+            response.json({ weather: 'hot', weatherString: 'Det är varmt ute' });
+        } else if (forecast.temprature > 10) {
+            response.json({ weather: 'neutral', weatherString: 'Det är ganska kallt ute' });
+        } else {
+            response.json({ weather: 'cold', weatherString: 'Det är kallt ute' });
+        }
+    });
 });
 
 app.post('/api/v1/text2Speech', (request, response) => {

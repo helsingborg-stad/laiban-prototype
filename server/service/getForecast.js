@@ -1,7 +1,8 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable prefer-destructuring */
-import dateFns from 'date-fns';
-import sv from 'date-fns/locale/sv';
+const fetch = require('node-fetch');
+const dateFns = require('date-fns');
+const sv = require('date-fns/locale/sv');
 
 /**
  * Get latest weather forecast based on a geographical location using SMHI open data API.
@@ -54,4 +55,4 @@ const getForecast = async (lon = '12.694454', lat = '56.046411') => {
         });
 };
 
-export default getForecast;
+module.exports = { getForecast };

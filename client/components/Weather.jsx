@@ -6,9 +6,11 @@ import weatherIcon from '../assets/images/symbols/large-cloud.png';
 export default class Weather extends Component {
     render() {
         return (
-            <div className="text-center">
-                <div className="symbol">
-                    <img className="symbol__icon" src={weatherIcon} />
+            <div className="container">
+                <div className="text-center">
+                    <div className="symbol">
+                        <img className="symbol__icon" src={weatherIcon} />
+                    </div>
                 </div>
             </div>
         );

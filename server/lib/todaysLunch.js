@@ -1,3 +1,23 @@
+const dateFns = require('date-fns');
+
+const todaysLunch = () => {
+    const todaysMenuKey = Object.keys(LUNCH_MENU).filter(date =>
+        dateFns.isSameDay(new Date(), new Date(date))
+    );
+
+    let todaysMenu = '';
+
+    if (todaysMenuKey.length === 1) {
+        todaysMenu = `Idag blir det ${LUNCH_MENU[todaysMenuKey[0]]}`;
+    }
+
+    if (todaysMenu.length <= 0) {
+        todaysMenu = 'Idag ska köket överraska oss så jag vet inte vad det blir för mat.';
+    }
+
+    return todaysMenu;
+};
+
 const LUNCH_MENU = {
     '05 02 2019':
         'Köttbullar med potatis och brunsås. Lingonsylt och grönsaker till det. veg: Morotsbullar med potatis. Kryddig sås, lingonsylt och grönsaker till det.',
@@ -34,4 +54,4 @@ const LUNCH_MENU = {
     '06 04 2019': 'Ugnspannkaka och grönsaker.Veg: grönsaksomelett och grönsaker.',
 };
 
-export default LUNCH_MENU;
+module.exports = { todaysLunch };

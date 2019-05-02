@@ -8,6 +8,7 @@ export default class Fab extends Component {
         to: PropTypes.string.isRequired,
         icon: PropTypes.string,
         color: PropTypes.oneOf(['default', 'danger', 'success']),
+        text: PropTypes.string,
     };
 
     static defaultProps = {
@@ -15,9 +16,9 @@ export default class Fab extends Component {
     };
 
     render() {
-        const { icon, color, children, to } = this.props;
+        const { icon, color, text, to } = this.props;
 
-        if (typeof icon === 'undefined' && typeof children === 'undefined') {
+        if (typeof icon === 'undefined' && typeof text === 'undefined') {
             return null;
         }
 
@@ -25,12 +26,12 @@ export default class Fab extends Component {
             <Link to={to}>
                 <div
                     className={classNames('fab', {
-                        'fab--extended': typeof children !== 'undefined',
+                        'fab--extended': typeof text !== 'undefined' && text.length > 0,
                         'fab--success': color === 'success',
                         'fab--danger': color === 'danger',
                     })}
                 >
-                    {children || <FabIcon icon={icon} />}
+                    {text || <FabIcon icon={icon} />}
                 </div>
             </Link>
         );
