@@ -35,10 +35,10 @@ class Clothing extends Component {
                 <Grid container spacing={32}>
                     {clothes.length > 0
                         ? clothes.map(garment => (
-                              <Grid item xs={12} key={garment.text}>
-                                  <Bubble icon={garment.image}>{garment.text}</Bubble>
-                              </Grid>
-                          ))
+                            <Grid item xs={12} key={garment.text}>
+                                <Bubble icon={garment.image}>{garment.text}</Bubble>
+                            </Grid>
+                        ))
                         : null}
                 </Grid>
             </div>

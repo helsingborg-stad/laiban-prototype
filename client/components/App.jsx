@@ -72,12 +72,9 @@ class App extends Component {
                         <Route
                             path="/lunch"
                             render={() => (
-                                <Scene
-                                    message={'Vad blir det för mat?'}
-                                    disableSpeech={disableSpeech}
-                                >
-                                    <Lunch />
-                                </Scene>
+                                <div>
+                                    <Lunch disableSpeech={disableSpeech} />
+                                </div>
                             )}
                         />
                         <Route
