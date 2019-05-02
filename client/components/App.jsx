@@ -8,6 +8,10 @@ import dateFns from 'date-fns';
 import Scene from './shared/Scene.jsx';
 import Fab from './shared/Fab.jsx';
 import Speech from './shared/Speech.jsx';
+import SpeechBubbles from './shared/SpeechBubbles.jsx';
+import Manuscript from './shared/Manuscript.jsx';
+import Bubble from './shared/Bubble.jsx';
+import Resource from './shared/Resource.jsx';
 
 import Intro from './Intro.jsx';
 import Home from './Home.jsx';
@@ -23,7 +27,7 @@ import playIcon from '../assets/images/play-white.png';
 import tinyLaiban from '../assets/images/laiban/laiban-figur-liten.png';
 
 class App extends Component {
-    state = { disableSpeech: false };
+    state = { disableSpeech: true };
 
     render() {
         const { location } = this.props;
@@ -40,35 +44,23 @@ class App extends Component {
                             path="/"
                             exact
                             render={() => (
-                                <Scene
-                                    message={'Vad vill du veta?'}
-                                    showMessage={true}
-                                    disableSpeech={disableSpeech}
-                                >
-                                    <Home />
-                                </Scene>
+                                <div>
+                                    <SpeechBubbles content={['Vad vill du veta?']} />
+                                    <div className="container">
+                                        <Home />
+                                    </div>
+                                </div>
                             )}
                         />
                         <Route
                             path="/clothing"
                             render={() => (
-                                <Scene
-                                    message={'Vad ska jag ha på mig?'}
-                                    disableSpeech={disableSpeech}
-                                >
-                                    <Clothing />
-                                </Scene>
-                            )}
-                        />
-                        <Route
-                            path="/weather"
-                            render={() => (
-                                <Scene
-                                    message={'Vad blir det för väder?'}
-                                    disableSpeech={disableSpeech}
-                                >
-                                    <Weather />
-                                </Scene>
+                                <div>
+                                    <SpeechBubbles content={['Vad ska jag ha på mig?']} />
+                                    <div className="container">
+                                        <Clothing />
+                                    </div>
+                                </div>
                             )}
                         />
                         <Route
@@ -82,12 +74,16 @@ class App extends Component {
                         <Route
                             path="/time"
                             render={() => (
-                                <Scene
-                                    message={`Klockan är ${dateFns.format(new Date(), 'HH:mm')}`}
-                                    disableSpeech={disableSpeech}
-                                >
-                                    <Time />
-                                </Scene>
+                                <div>
+                                    <SpeechBubbles
+                                        content={[
+                                            `Klockan är ${dateFns.format(new Date(), 'HH:mm')}`,
+                                        ]}
+                                    />
+                                    <div className="container">
+                                        <Time />
+                                    </div>
+                                </div>
                             )}
                         />
                         <Route
@@ -95,6 +91,17 @@ class App extends Component {
                             render={() => (
                                 <div>
                                     <Calendar disableSpeech={disableSpeech} />
+                                </div>
+                            )}
+                        />
+                        <Route
+                            path="/weather"
+                            render={() => (
+                                <div>
+                                    <SpeechBubbles content={['Vad blir det för väder?']} />
+                                    <div className="container">
+                                        <Weather />
+                                    </div>
                                 </div>
                             )}
                         />
