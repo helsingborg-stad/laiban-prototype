@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 export default class Intro extends Component {
     render() {
         return (
-            <Link to="/navigation">
+            <Link to="/">
                 <div className="screen-size laiban labian-idle">
                     <span />
                 </div>

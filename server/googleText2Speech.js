@@ -29,7 +29,8 @@ const googleText2Speech = async text => {
         audioConfig: {
             audioEncoding: 'OGG_OPUS',
             // speakingRate: 1.0,
-            pitch: 16.0,
+            pitch: -6,
+            speakingRate: 0.93,
             // volumeGainDb: '',
             // sampleRateHertz: '',
             effectsProfileId: ['handset-class-device'],

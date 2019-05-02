@@ -8,7 +8,7 @@ import dayIcon from '../assets/images/home/home-schedule.png';
 
 import Menu from './shared/Menu.jsx';
 
-export default class Navigation extends Component {
+export default class Home extends Component {
     render() {
         return (
             <Menu container>
