@@ -170,10 +170,15 @@ a {
     }
 }
 
-.bubble + .bubble,
+.bubble + .bubble {
+    margin-top: $base * 4;
+}
+
 .speech-bubble + .speech-bubble {
     margin-top: $base * 6;
 }
+
+
 
 .laiban-large {
     background-size: contain;
@@ -259,4 +264,8 @@ a {
 
 .relative {
     position: relative;
+}
+
+.space-top {
+    margin-top: $base * 6;
 }
