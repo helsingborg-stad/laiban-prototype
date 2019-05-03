@@ -38,16 +38,16 @@ app.get('/api/v1/weekday', (request, response) => {
 app.get('/api/v1/clothing', (request, response) => {
     getForecast().then(forecast => {
         if (forecast.rain) {
-            response.json({ weather: 'rain', weatherString: 'Det regnar ute' });
+            response.json({ weather: 'rain', weatherString: 'Det verkar vara regnigt ute. 🌧️' });
             return;
         }
 
         if (forecast.temprature > 15) {
-            response.json({ weather: 'hot', weatherString: 'Det är varmt ute' });
+            response.json({ weather: 'hot', weatherString: 'Det verkar vara varmt ute. ☀️' });
         } else if (forecast.temprature > 10) {
-            response.json({ weather: 'neutral', weatherString: 'Det är ganska kallt ute' });
+            response.json({ weather: 'neutral', weatherString: 'Det verkar vara lite svalt ute.' });
         } else {
-            response.json({ weather: 'cold', weatherString: 'Det är kallt ute' });
+            response.json({ weather: 'cold', weatherString: 'Det verkar vara kallt ute. ❄️' });
         }
     });
 });
