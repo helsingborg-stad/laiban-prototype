@@ -4,7 +4,7 @@ import '@babel/polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'typeface-roboto';
-import { HashRouter } from 'react-router-dom';
+import { HashRouter, MemoryRouter } from 'react-router-dom';
 import App from './components/App.jsx';
 
 import './assets/sass/styles.scss';
@@ -19,9 +19,9 @@ class Bootstrap {
         element.setAttribute('id', 'app');
         document.body.appendChild(element);
         ReactDOM.render(
-            <HashRouter>
+            <MemoryRouter>
                 <App />
-            </HashRouter>,
+            </MemoryRouter>,
             document.getElementById('app')
         );
     };
