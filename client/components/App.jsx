@@ -13,7 +13,7 @@ import Resource from './shared/Resource.jsx';
 import Intro from './Intro.jsx';
 import Home from './Home.jsx';
 import Clothing from './Clothing.jsx';
-import Time from './Time.jsx';
+import Clock from './Clock.jsx';
 import Weather from './Weather.jsx';
 import Calendar from './Calendar.jsx';
 
@@ -124,7 +124,7 @@ class App extends Component {
                                             `Klockan är ${dateFns.format(new Date(), 'HH:mm')}`,
                                         ]}
                                     />
-                                    <Time />
+                                    <Clock />
                                 </div>
                             )}
                         />

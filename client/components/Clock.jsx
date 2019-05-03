@@ -1,7 +1,29 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import Grid from '@material-ui/core/Grid';
 
-export default class Clock extends React.Component {
+export default class Clock extends Component {
+    render() {
+        return (
+            <div className="container">
+                <div className="grid-container">
+                    <Grid
+                        container
+                        spacing={32}
+                        direction="row"
+                        justify="center"
+                        alignItems="center"
+                    >
+                        <Grid item>
+                            <AnalogClock />
+                        </Grid>
+                    </Grid>
+                </div>
+            </div>
+        );
+    }
+}
+
+const AnalogClock = class extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -61,21 +83,21 @@ export default class Clock extends React.Component {
                             id="hours-indicator"
                             className={`indicator hours-indicator ${
                                 this.state.date.getHours() === 0 ? '' : 'transition-effect'
-                            }`}
+                                }`}
                             style={divStyleHours}
                         />
                         <div
                             id="minutes-indicator"
                             className={`indicator minutes-indicator ${
                                 this.state.date.getMinutes() === 0 ? '' : 'transition-effect'
-                            }`}
+                                }`}
                             style={divStyleMinutes}
                         />
                         <div
                             id="seconds-indicator"
                             className={`indicator seconds-indicator ${
                                 this.state.date.getSeconds() === 0 ? '' : 'transition-effect'
-                            }`}
+                                }`}
                             style={divStyleSeconds}
                         />
                         <div className="indicator-cover" />
@@ -85,4 +107,4 @@ export default class Clock extends React.Component {
             </div>
         );
     }
-}
+};
