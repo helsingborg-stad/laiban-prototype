@@ -21,7 +21,7 @@ const CLOTHING_SETS = {
         { text: 'Mössa', image: winterhat },
         { text: 'Jacka', image: winterjacket },
         { text: 'Överdragsbyxor', image: winterpants },
-        { text: 'Kängor', image: winterboots },
+        { text: 'Skor', image: winterboots },
     ],
     neutral: [
         { text: 'Keps', image: hat },
