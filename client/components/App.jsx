@@ -94,7 +94,7 @@ class App extends Component {
                                                     content={[
                                                         'Jaha ni ska gå ut – vad kul!',
                                                         `${
-                                                        data.weatherString
+                                                            data.weatherString
                                                         }  Låt oss se vad ni ska ha på er.`,
                                                         'Är ni redo?',
                                                     ]}
@@ -139,7 +139,15 @@ class App extends Component {
                             render={() => (
                                 <Resource
                                     endpoint="/api/v1/lunch"
-                                    render={data => <SpeechBubbles content={[data.todaysLunch]} />}
+                                    render={data => (
+                                        <SpeechBubbles
+                                            content={
+                                                data.todaysLunch === 'string'
+                                                    ? [data.todaysLunch]
+                                                    : data.todaysLunch
+                                            }
+                                        />
+                                    )}
                                 />
                             )}
                         />
