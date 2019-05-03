@@ -6,11 +6,12 @@ import { withRouter, BrowserRouter as Router, Route, Link } from 'react-router-d
 
 import Grid from '@material-ui/core/Grid';
 import dateFns from 'date-fns';
+
 import Fab from './shared/Fab.jsx';
 import SpeechBubbles from './shared/SpeechBubbles.jsx';
 import Resource from './shared/Resource.jsx';
 
-import Intro from './Intro.jsx';
+import Intro from './Laiban.jsx';
 import Home from './Home.jsx';
 import Clothing from './Clothing.jsx';
 import Clock from './Clock.jsx';
@@ -19,23 +20,51 @@ import Calendar from './Calendar.jsx';
 
 import HomeIcon from '../assets/images/home-white.png';
 import playIcon from '../assets/images/play-white.png';
-
-import tinyLaiban from '../assets/images/laiban/laiban-figur-liten.png';
+import tinyLaiban from '../assets/images/laiban/tiny.gif';
 
 class App extends Component {
     state = {
         disableSpeech: true,
         actionButtonPath: '',
         actionButtonContent: '',
+        showLaiban: true,
+        laibanExpression: '',
     };
 
     toggleActionButton = (path = '', text = '') => {
         this.setState((state, props) => ({ actionButtonPath: path, actionButtonContent: text }));
     };
 
+    toggleLaiban = (expression = 'screensaver') => {
+        this.setState((state, props) => ({
+            showLaiban: !state.showLaiban,
+            laibanExpression: expression,
+        }));
+    };
+
     render() {
         const { location } = this.props;
-        const { disableSpeech, actionButtonPath, actionButtonContent } = this.state;
+        const {
+            disableSpeech,
+            actionButtonPath,
+            actionButtonContent,
+            showLaiban,
+            laibanExpression,
+        } = this.state;
+
+        if (showLaiban) {
+            return (
+                <div>
+                    <SpeechBubbles content={[' ']} />
+                    <Intro
+                        expression={laibanExpression.length > 0 ? laibanExpression : 'screensaver'}
+                        onClick={() => {
+                            this.setState({ showLaiban: false });
+                        }}
+                    />
+                </div>
+            );
+        }
 
         return (
             <div>
@@ -127,6 +156,7 @@ class App extends Component {
                                 </div>
                             )}
                         />
+
                         <Route
                             path="/calendar"
                             render={() => (
@@ -139,6 +169,7 @@ class App extends Component {
                                 </div>
                             )}
                         />
+
                         <Route
                             path="/weather"
                             render={() => (
