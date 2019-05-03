@@ -65,8 +65,8 @@ class App extends Component {
                                                     content={[
                                                         'Jaha ni ska gå ut – vad kul!',
                                                         `${
-                                                            data.weatherString
-                                                        }.  Låt oss se vad ni ska ha på er.`,
+                                                        data.weatherString
+                                                        }  Låt oss se vad ni ska ha på er.`,
                                                         'Är ni redo?',
                                                     ]}
                                                     onEnd={() => {
