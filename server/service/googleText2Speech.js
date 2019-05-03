@@ -27,7 +27,7 @@ const googleText2Speech = async text => {
             // ssmlGender: '',
         },
         audioConfig: {
-            audioEncoding: 'OGG_OPUS',
+            audioEncoding: 'MP3',
             // speakingRate: 1.0,
             pitch: -6,
             speakingRate: 0.93,

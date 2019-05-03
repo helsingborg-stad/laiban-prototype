@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { Howl, Howler } from 'howler';
+
 export default class Speech extends Component {
     state = {
-        audio: new Audio(),
+        audio: '',
     };
 
     static propTypes = {
@@ -16,13 +18,14 @@ export default class Speech extends Component {
 
         text2Speech(text).then(response => {
             const { audioContent } = response;
-            const { audio } = this.state;
 
-            if (typeof onEnd !== 'undefined') {
-                audio.onended = onEnd;
-            }
+            const audio = new Howl({
+                src: `data:audio/mp3;base64,${audioContent}`,
+                onend: typeof onEnd !== 'undefined' ? onEnd : () => {},
+            });
 
-            audio.src = `data:audio/ogg;base64,${audioContent}`;
+            this.setState({ audio: audio });
+
             audio.play();
         });
     }
