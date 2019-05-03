@@ -17,6 +17,12 @@ const googleText2Speech = async text => {
         };
     }
 
+    // Remove emojis
+    text = text.replace(
+        /(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/g,
+        ''
+    );
+
     const requestBody = {
         input: {
             text: text,
