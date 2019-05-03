@@ -40,9 +40,7 @@ class App extends Component {
         return (
             <div>
                 <div className="screen-size">
-                    <header className="header container-small relative">
-                        <img className="laiban-tiny" src={tinyLaiban} />
-                    </header>
+                    <Header tinyLaiban={tinyLaiban} />
                     <main className="content">
                         <Route
                             path="/"
@@ -106,6 +104,7 @@ class App extends Component {
                                 />
                             )}
                         />
+
                         <Route
                             path="/lunch"
                             render={() => (
@@ -150,35 +149,49 @@ class App extends Component {
                             )}
                         />
                     </main>
-                    <footer className="footer">
-                        <div className="container">
-                            <Grid container justify="space-between">
-                                <Grid item>
-                                    {location.pathname !== '/' && (
-                                        <Fab to="/" icon={HomeIcon} color="danger" />
-                                    )}
-                                </Grid>
-                                <Grid item>
-                                    {location.pathname !== '/' && actionButtonPath.length > 0 && (
-                                        <Fab
-                                            to={actionButtonPath}
-                                            icon={actionButtonContent.length > 0 ? null : playIcon}
-                                            text={
-                                                actionButtonContent.length > 0
-                                                    ? actionButtonContent
-                                                    : ''
-                                            }
-                                            color="success"
-                                        />
-                                    )}
-                                </Grid>
-                            </Grid>
-                        </div>
-                    </footer>
+                    <Footer
+                        location={location}
+                        actionButtonPath={actionButtonPath}
+                        actionButtonContent={actionButtonContent}
+                    />
                 </div>
             </div>
         );
     }
 }
+
+const Header = props => (
+    <header className="header container-small relative">
+        <img className="laiban-tiny" src={props.tinyLaiban} />
+    </header>
+);
+
+const Footer = props => (
+    <footer className="footer">
+        <div className="container">
+            <Grid container justify="space-between">
+                <Grid item>
+                    {props.location.pathname !== '/' && (
+                        <Fab to="/" icon={HomeIcon} color="danger" />
+                    )}
+                </Grid>
+                <Grid item>
+                    {props.location.pathname !== '/' && props.actionButtonPath.length > 0 && (
+                        <Fab
+                            to={props.actionButtonPath}
+                            icon={props.actionButtonContent.length > 0 ? null : playIcon}
+                            text={
+                                props.actionButtonContent.length > 0
+                                    ? props.actionButtonContent
+                                    : ''
+                            }
+                            color="success"
+                        />
+                    )}
+                </Grid>
+            </Grid>
+        </div>
+    </footer>
+);
 
 export default hot(module)(withRouter(App));
