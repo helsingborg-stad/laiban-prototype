@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import PropTypes from 'prop-types';
+
 import lunchIcon from '../assets/images/home/home-plate.png';
 import weatherIcon from '../assets/images/home/home-cloud-sun.png';
 import clothingIcon from '../assets/images/home/home-playground.png';
@@ -11,7 +13,7 @@ import Menu from './shared/Menu.jsx';
 export default class Home extends Component {
     render() {
         return (
-            <div className="container">
+            <div className="container space-top">
                 <Menu container>
                     <Menu item to={'/going-out'} icon={clothingIcon}>
                         Vi ska gå ut
@@ -25,9 +27,9 @@ export default class Home extends Component {
                     <Menu item to={'/calendar'} icon={dayIcon}>
                         Vad är det för dag idag?
                     </Menu>
-                    <Menu item to={'/weather'} icon={weatherIcon}>
+                    {/* <Menu item to={'/weather'} icon={weatherIcon}>
                         Vad är det för väder ute?
-                    </Menu>
+                    </Menu> */}
                 </Menu>
             </div>
         );

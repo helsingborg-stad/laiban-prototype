@@ -34,7 +34,7 @@ export default class Menu extends Component {
 }
 
 const MenuItem = props => (
-    <Grid item xs={4}>
+    <Grid item xs={6}>
         <Link to={props.to}>
             <div className="text-center">
                 <div className="menu-icon">

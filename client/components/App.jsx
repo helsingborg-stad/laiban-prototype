@@ -178,7 +178,7 @@ class App extends Component {
                             )}
                         />
 
-                        <Route
+                        {/* <Route
                             path="/weather"
                             render={() => (
                                 <div>
@@ -186,7 +186,7 @@ class App extends Component {
                                     <Weather />
                                 </div>
                             )}
-                        />
+                        /> */}
                     </main>
                     <Footer
                         location={location}

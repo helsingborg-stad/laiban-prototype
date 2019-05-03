@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 export default class Clock extends Component {
     render() {
         return (
-            <div className="container">
+            <div className="container space-top">
                 <div className="grid-container">
                     <Grid
                         container
@@ -83,21 +83,21 @@ const AnalogClock = class extends Component {
                             id="hours-indicator"
                             className={`indicator hours-indicator ${
                                 this.state.date.getHours() === 0 ? '' : 'transition-effect'
-                                }`}
+                            }`}
                             style={divStyleHours}
                         />
                         <div
                             id="minutes-indicator"
                             className={`indicator minutes-indicator ${
                                 this.state.date.getMinutes() === 0 ? '' : 'transition-effect'
-                                }`}
+                            }`}
                             style={divStyleMinutes}
                         />
                         <div
                             id="seconds-indicator"
                             className={`indicator seconds-indicator ${
                                 this.state.date.getSeconds() === 0 ? '' : 'transition-effect'
-                                }`}
+                            }`}
                             style={divStyleSeconds}
                         />
                         <div className="indicator-cover" />

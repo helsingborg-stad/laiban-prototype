@@ -8,7 +8,7 @@ export default class Calendar extends Component {
     render() {
         const { date } = this.props;
         return (
-            <div className="container">
+            <div className="container space-top">
                 <div className="grid-container">
                     <Grid
                         container
