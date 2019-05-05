@@ -1,4 +1,5 @@
 /* eslint-disable global-require */
+/* eslint-disable import/no-dynamic-require */
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
@@ -12,6 +13,8 @@ const { googleText2Speech } = require('./service/googleText2Speech');
 const { getForecast } = require('./service/getForecast');
 const { todaysLunch } = require('./lib/todaysLunch');
 const { weekDay } = require('./lib/weekDay');
+
+const packageJson = require(`${process.cwd()}/package.json`);
 
 const app = express();
 
@@ -28,6 +31,10 @@ app.get('/', (request, response) => {
 });
 
 // API Endpoints
+app.get('/api/v1/version', (request, response) => {
+    response.json({ version: packageJson.version });
+});
+
 app.get('/api/v1/lunch', (request, response) => {
     response.json({ todaysLunch: todaysLunch() });
 });
