@@ -11,7 +11,7 @@ import Fab from './shared/Fab.jsx';
 import SpeechBubbles from './shared/SpeechBubbles.jsx';
 import Resource from './shared/Resource.jsx';
 
-import Intro from './Laiban.jsx';
+import Laiban from './Laiban.jsx';
 import Home from './Home.jsx';
 import Clothing from './Clothing.jsx';
 import Clock from './Clock.jsx';
@@ -24,8 +24,9 @@ import tinyLaiban from '../assets/images/laiban/tiny.gif';
 
 class App extends Component {
     state = {
-        disableSpeech: true,
         appVersion: '',
+        loadingScreen: true,
+        disableSpeech: false,
         actionButtonPath: '',
         actionButtonContent: '',
         showLaiban: true,
@@ -76,13 +77,18 @@ class App extends Component {
             actionButtonContent,
             showLaiban,
             laibanExpression,
+            loadingScreen,
         } = this.state;
+
+        if (loadingScreen) {
+            return <Laiban expression={'sleepy'} />;
+        }
 
         if (showLaiban) {
             return (
                 <div>
                     <SpeechBubbles content={[' ']} />
-                    <Intro
+                    <Laiban
                         expression={laibanExpression.length > 0 ? laibanExpression : 'screensaver'}
                         onClick={() => {
                             this.setState({ showLaiban: false });
