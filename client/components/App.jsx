@@ -25,10 +25,36 @@ import tinyLaiban from '../assets/images/laiban/tiny.gif';
 class App extends Component {
     state = {
         disableSpeech: true,
+        appVersion: '',
         actionButtonPath: '',
         actionButtonContent: '',
         showLaiban: true,
         laibanExpression: '',
+    };
+
+    componentDidMount() {
+        // Set APP version
+        this.getCurrentVersion().then(json => {
+            this.setState({ appVersion: json.version, loadingScreen: false });
+            // Check if new app version
+            setInterval(() => {
+                this.getCurrentVersion().then(json => {
+                    if (json.version !== this.state.appVersion) {
+                        // Reload client
+                        window.location.reload(true);
+                    }
+                });
+            }, 300000); // every 5 minutes (300000)
+        });
+    }
+
+    getCurrentVersion = () => {
+        return fetch('/api/v1/version', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }).then(response => response.json());
     };
 
     toggleActionButton = (path = '', text = '') => {
