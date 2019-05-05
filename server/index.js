@@ -6,6 +6,7 @@ if (process.env.NODE_ENV !== 'production') {
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+const http = require('http');
 
 const { googleText2Speech } = require('./service/googleText2Speech');
 const { getForecast } = require('./service/getForecast');
@@ -69,3 +70,10 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log('Server listening on port ', PORT);
 });
+
+// Prevent Heroku from sleeping
+if (typeof process.env.HEROKU_URL !== 'undefined') {
+    setInterval(function() {
+        http.get(process.env.HEROKU_URL);
+    }, 300000); // every 5 minutes (300000)
+}
