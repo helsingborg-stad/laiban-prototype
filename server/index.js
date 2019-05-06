@@ -25,7 +25,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Static assets
-app.use(netjet({cache: {maxAge: 300000}}));
+app.use(netjet({ cache: { maxAge: 300000 } }));
 app.use(express.static(`${process.cwd()}/public`));
 
 // Static
