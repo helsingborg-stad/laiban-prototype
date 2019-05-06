@@ -9,6 +9,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const http = require('http');
 const https = require('https');
+const netjet = require('netjet');
 
 const { googleText2Speech } = require('./service/googleText2Speech');
 const { getForecast } = require('./service/getForecast');
@@ -24,6 +25,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Static assets
+app.use(netjet({maxAge: 300000}));
 app.use(express.static(`${process.cwd()}/public`));
 
 // Static
