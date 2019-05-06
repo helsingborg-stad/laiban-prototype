@@ -69,6 +69,7 @@
         "prop-types": "^15.7.2",
         "react": "^16.8.4",
         "react-dom": "^16.8.4",
+        "react-ga": "^2.5.7",
         "react-hot-loader": "^4.8.0",
         "react-router-dom": "^5.0.0",
         "typeface-roboto": "0.0.54"
