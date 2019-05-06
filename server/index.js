@@ -38,6 +38,17 @@ app.get('/api/v1/version', (request, response) => {
     response.json({ version: packageJson.version });
 });
 
+app.get('/api/v1/ga', (request, response) => {
+    if (typeof process.env.GOOGLE_ANALYTICS_TRACKING_ID !== 'undefined') {
+        response.json({
+            status: 'success',
+            gaTrackingId: process.env.GOOGLE_ANALYTICS_TRACKING_ID,
+        });
+        return;
+    }
+    response.json({ status: 'failed', gaTrackingId: false });
+});
+
 app.get('/api/v1/lunch', (request, response) => {
     response.json({ todaysLunch: todaysLunch() });
 });
