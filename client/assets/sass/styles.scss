@@ -93,7 +93,10 @@ a {
     padding: $base * 3;
     border: solid $base white;
     box-shadow: 0 $base * 4 $base * 6 0 rgba(0,0,0,0.30);
-    
+
+    height: 96px;
+    width: 96px;
+
     img {
         height: auto;
         width: 100%;
