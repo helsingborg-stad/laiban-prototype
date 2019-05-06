@@ -160,6 +160,11 @@ a {
     height: auto;
 }
 
+.bubble__icon img {
+    width: 80px;
+    height: 80px;
+}
+
 .speech-bubble {
     @extend .bubble;
     padding-top: $base * 4;
