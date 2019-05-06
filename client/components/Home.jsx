@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 
 import PropTypes from 'prop-types';
 
-import lunchIcon from '../assets/images/home/home-plate.png';
-import weatherIcon from '../assets/images/home/home-cloud-sun.png';
-import clothingIcon from '../assets/images/home/home-playground.png';
-import clockIcon from '../assets/images/home/home-time.png';
-import dayIcon from '../assets/images/home/home-schedule.png';
+import lunchIcon from '../assets/images/home/home-plate@2x.png';
+import weatherIcon from '../assets/images/home/home-cloud-sun@2x.png';
+import clothingIcon from '../assets/images/home/home-playground@2x.png';
+import clockIcon from '../assets/images/home/home-time@2x.png';
+import dayIcon from '../assets/images/home/home-schedule@2x.png';
 
 import Menu from './shared/Menu.jsx';
 

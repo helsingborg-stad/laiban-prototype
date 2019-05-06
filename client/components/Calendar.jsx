@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 
 import dateFns from 'date-fns';
-import calendarIcon from '../assets/images/symbols/large-schedule.png';
+import calendarIcon from '../assets/images/symbols/large-schedule@2x.png';
 
 export default class Calendar extends Component {
     render() {
