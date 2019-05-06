@@ -24,18 +24,20 @@ export default class Speech extends Component {
                 onend: typeof onEnd !== 'undefined' ? onEnd : () => {},
             });
 
-            this.setState({ audio: audio });
-
-            audio.play();
+            this.setState((state, props) => {
+                audio.play();
+                return { audio: audio };
+            });
         });
     }
 
     componentWillUnmount() {
         const { audio } = this.state;
 
-        // Pause audio
-        audio.pause();
-        audio.currentTime = 0;
+        if (typeof audio === 'object') {
+            // Pause audio
+            audio.pause();
+        }
 
         // Remove Audio object
         this.setState({ audio: '' });
