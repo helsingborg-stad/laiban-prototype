@@ -6,6 +6,7 @@ import { withRouter, BrowserRouter as Router, Route, Link } from 'react-router-d
 
 import Grid from '@material-ui/core/Grid';
 import dateFns from 'date-fns';
+import ReactGA from 'react-ga';
 
 import Fab from './shared/Fab.jsx';
 import SpeechBubbles from './shared/SpeechBubbles.jsx';
@@ -31,9 +32,39 @@ class App extends Component {
         actionButtonContent: '',
         showLaiban: true,
         laibanExpression: '',
+        gaTracking: false,
     };
 
+    componentWillReceiveProps(nextProps, prevState) {
+        const { gaTracking } = this.state;
+        if (nextProps.location !== this.props.location && gaTracking) {
+            const { pathname } = nextProps.location;
+            ReactGA.event({
+                category: 'User',
+                action: 'Navigated',
+                label: pathname,
+            });
+        }
+    }
+
     componentDidMount() {
+        // GA Tracking
+        this.getAnalyticsId().then(json => {
+            if (json.status !== 'success') {
+                return;
+            }
+
+            this.setState((state, props) => {
+                ReactGA.initialize(json.gaTrackingId, {});
+                ReactGA.event({
+                    category: 'User',
+                    action: 'Navigated',
+                    label: '/',
+                });
+                return { gaTracking: true };
+            });
+        });
+
         // Set APP version
         this.getCurrentVersion().then(json => {
             this.setState({ appVersion: json.version, loadingScreen: false });
@@ -48,6 +79,15 @@ class App extends Component {
             }, 300000); // every 5 minutes (300000)
         });
     }
+
+    getAnalyticsId = () => {
+        return fetch('/api/v1/ga', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }).then(response => response.json());
+    };
 
     getCurrentVersion = () => {
         return fetch('/api/v1/version', {
