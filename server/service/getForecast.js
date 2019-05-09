@@ -34,9 +34,10 @@ const getForecast = async (lon = '12.694454', lat = '56.046411') => {
             let temprature = 0;
 
             if (closestForecast.length === 1) {
-                // Precipitation Category (Rain, Snow etc)
-                const pcat = closestForecast[0].parameters.filter(
-                    paramItem => paramItem.name === 'pcat'
+                // http://opendata.smhi.se/apidocs/metfcst/parameters.html
+                // Weather Symbol - Wsymb2, consists of integers, 1 to 27. Every value represents a different kind of weather situation.
+                const Wsymb2 = closestForecast[0].parameters.filter(
+                    paramItem => paramItem.name === 'Wsymb2'
                 )[0];
 
                 // Air Temprature
@@ -44,8 +45,12 @@ const getForecast = async (lon = '12.694454', lat = '56.046411') => {
                     paramItem => paramItem.name === 't'
                 )[0];
 
-                if (pcat.level !== 0) {
-                    rain = true;
+                if (
+                    typeof Wsymb2.values !== 'undefined' &&
+                    Array.isArray(Wsymb2.values) &&
+                    Wsymb2.values.length > 0
+                ) {
+                    rain = Wsymb2.values[0] > 7 && Wsymb2.values[0] < 28;
                 }
 
                 temprature = t.values[0];
