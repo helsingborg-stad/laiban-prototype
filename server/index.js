@@ -69,7 +69,7 @@ app.get('/api/v1/clothing', (request, response) => {
         } else if (forecast.temprature > 10) {
             response.json({ weather: 'neutral', weatherString: 'Det verkar vara lite svalt ute.' });
         } else {
-            response.json({ weather: 'cold', weatherString: 'Det verkar vara kallt ute. ❄️' });
+            response.json({ weather: 'cold', weatherString: 'Det verkar vara kallt ute. 🥶' });
         }
     });
 });
