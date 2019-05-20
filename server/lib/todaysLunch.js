@@ -69,6 +69,23 @@ const LUNCH_MENU = {
         'Köttfärslimpa med potatis, sås och grönsaker.',
         'Sojafärslimpa med potatis kryddig sås och grönsaker.',
     ],
+    '05 20 2019': [
+        'Chili con carne med matvete eller risoni och grönsaker.',
+        'Grönsaksgryta med linser och matvete eller risoni och grönsaker.',
+    ],
+    '05 21 2019': [
+        'Torskfilé med kall sås, kokt potatis och grönsaker.',
+        'Grönsaksvegett med kall sås, potatis och grönsaker.',
+    ],
+    '05 22 2019': [
+        'Thaigryta med fläskkött, nudlar och grönsaker.',
+        'Thaigryta med quorn, nudlar och grönsaker.',
+    ],
+    '05 23 2019': [
+        'Falukorv med potatismos och grönsaker.',
+        'Vegoprinskorv med potatismos och grönsaker.',
+    ],
+    '05 24 2019': ['Lasagne och grönsaker.'],
     '05 27 2019': [
         'Köttbullar med potatis, sås och grönsaker.',
         'Morotsbullar med potatis. kryddig sås, lingonsylt och grönsaker.',
