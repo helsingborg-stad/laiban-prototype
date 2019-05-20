@@ -16,7 +16,7 @@ export default class Home extends Component {
             <div className="container space-top">
                 <Menu container>
                     <Menu item to={'/going-out'} icon={clothingIcon}>
-                        Vi ska gå ut
+                        Vi ska klä på oss
                     </Menu>
                     <Menu item to={'/lunch'} icon={lunchIcon}>
                         Vad blir det för mat idag?
