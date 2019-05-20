@@ -149,7 +149,7 @@ class App extends Component {
                             render={() => (
                                 <div>
                                     <SpeechBubbles content={['Vad vill du veta?']} />
-                                    <Home />
+                                    <Home toggleLaiban={this.toggleLaiban} />
                                 </div>
                             )}
                         />

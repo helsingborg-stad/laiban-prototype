@@ -11,6 +11,26 @@ import dayIcon from '../assets/images/home/home-schedule@2x.png';
 import Menu from './shared/Menu.jsx';
 
 export default class Home extends Component {
+    state = {
+        timeOutVar: null,
+    };
+
+    componentWillMount() {
+        this.setState((state, props) => {
+            const timeOut = setTimeout(() => {
+                props.toggleLaiban();
+            }, 120000); // 2min
+
+            return { timeOutVar: timeOut };
+        });
+    }
+
+    componentWillUnmount() {
+        if (typeof this.state.timeOutVar === 'number') {
+            clearTimeout(this.state.timeOutVar);
+        }
+    }
+
     render() {
         return (
             <div className="container space-top">
