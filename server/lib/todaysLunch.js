@@ -12,7 +12,7 @@ const todaysLunch = () => {
         Array.isArray(LUNCH_MENU[todaysMenuKey[0]]) &&
         LUNCH_MENU[todaysMenuKey[0]].length > 0
     ) {
-        todaysMenu.push('Idag blir det ..');
+        todaysMenu.push('På matsedeln står det ..');
 
         LUNCH_MENU[todaysMenuKey[0]].forEach(item => {
             todaysMenu.push(item);
