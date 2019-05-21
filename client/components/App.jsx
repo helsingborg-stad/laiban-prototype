@@ -164,7 +164,6 @@ class App extends Component {
                                             return (
                                                 <SpeechBubbles
                                                     content={[
-                                                        'Vi ska klä på oss',
                                                         `${
                                                             data.weatherString
                                                         }  Låt oss se vad ni ska ha på er.`,
