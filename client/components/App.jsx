@@ -211,19 +211,14 @@ class App extends Component {
                             path="/lunch"
                             render={() => (
                                 <Resource
-                                    endpoint="/api/v1/lunch"
-                                    render={data => (
-                                        <SpeechBubbles
-                                            content={
-                                                data.todaysLunch === 'string'
-                                                    ? [data.todaysLunch]
-                                                    : data.todaysLunch
-                                            }
-                                        />
+                                    endpoint={`/api/v1/school/${schoolId}/lunch`}
+                                    render={todaysLunchScript => (
+                                        <SpeechBubbles content={todaysLunchScript} />
                                     )}
                                 />
                             )}
                         />
+
                         <Route
                             path="/time"
                             render={() => (
@@ -243,8 +238,10 @@ class App extends Component {
                             render={() => (
                                 <div>
                                     <Resource
-                                        endpoint="/api/v1/weekday"
-                                        render={data => <SpeechBubbles content={[data.weekDay]} />}
+                                        endpoint={`/api/v1/school/${schoolId}/calendar`}
+                                        render={calendarManuscript => (
+                                            <SpeechBubbles content={calendarManuscript} />
+                                        )}
                                     />
                                     <Calendar date={new Date()} />
                                 </div>
