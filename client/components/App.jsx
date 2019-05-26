@@ -182,43 +182,60 @@ class App extends Component {
                             exact
                             render={() => (
                                 <div>
-                                    <SpeechBubbles content={['Vad vill du veta?']} />
-                                    <ShowLaiban
-                                        toggleMethod={this.toggleLaiban}
-                                        expression={'screensaver'}
-                                        delay={120000 /* 2min */}
+                                    <Resource
+                                        endpoint={`/api/v1/school/${schoolId}/activity`}
+                                        render={todaysActivity => (
+                                            <div>
+                                                <SpeechBubbles content={['Vad vill du veta?']} />
+                                                <ShowLaiban
+                                                    toggleMethod={this.toggleLaiban}
+                                                    expression={'screensaver'}
+                                                    delay={120000 /* 2min */}
+                                                />
+                                                <div className="container space-top">
+                                                    <Navigation
+                                                        links={[
+                                                            {
+                                                                to: '/going-out',
+                                                                icon: clothingIcon,
+                                                                content: 'Vi ska klä på oss',
+                                                            },
+                                                            {
+                                                                to: '/lunch',
+                                                                icon: lunchIcon,
+                                                                content:
+                                                                    'Vad blir det för mat idag?',
+                                                            },
+                                                            {
+                                                                to: '/time',
+                                                                icon: clockIcon,
+                                                                content: 'Vad är klockan?',
+                                                            },
+                                                            {
+                                                                to: '/calendar',
+                                                                icon: dayIcon,
+                                                                content: 'Vad är det för dag idag?',
+                                                            },
+                                                        ].concat(
+                                                            /* Dyanmic menu items */
+                                                            typeof todaysActivity.content !==
+                                                                'undefined' &&
+                                                                todaysActivity.content.length > 0
+                                                                ? [
+                                                                      {
+                                                                          to: '/activity',
+                                                                          icon: dayIcon,
+                                                                          content:
+                                                                              'Vad ska vi göra idag?',
+                                                                      },
+                                                                  ]
+                                                                : []
+                                                        )}
+                                                    />
+                                                </div>
+                                            </div>
+                                        )}
                                     />
-                                    <div className="container space-top">
-                                        <Navigation
-                                            links={[
-                                                {
-                                                    to: '/going-out',
-                                                    icon: clothingIcon,
-                                                    content: 'Vi ska klä på oss',
-                                                },
-                                                {
-                                                    to: '/lunch',
-                                                    icon: lunchIcon,
-                                                    content: 'Vad blir det för mat idag?',
-                                                },
-                                                {
-                                                    to: '/time',
-                                                    icon: clockIcon,
-                                                    content: 'Vad är klockan?',
-                                                },
-                                                {
-                                                    to: '/calendar',
-                                                    icon: dayIcon,
-                                                    content: 'Vad är det för dag idag?',
-                                                },
-                                                {
-                                                    to: '/activity',
-                                                    icon: dayIcon,
-                                                    content: 'Vad ska vi göra idag?',
-                                                },
-                                            ]}
-                                        />
-                                    </div>
                                 </div>
                             )}
                         />
@@ -317,6 +334,18 @@ class App extends Component {
                                         )}
                                     />
                                     <Calendar date={new Date()} />
+                                </div>
+                            )}
+                        />
+
+                        <Route
+                            path="/activity"
+                            render={() => (
+                                <div>
+                                    <Resource
+                                        endpoint={`/api/v1/school/${schoolId}/activity`}
+                                        render={data => <SpeechBubbles content={data.content} />}
+                                    />
                                 </div>
                             )}
                         />
