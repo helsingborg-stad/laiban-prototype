@@ -34,6 +34,7 @@ class App extends Component {
         actionButtonCallback: false,
         showLaiban: true,
         laibanExpression: '',
+        laibanTimer: false,
         gaTracking: false,
         schoolId: 0,
         schoolIsValid: false,
@@ -106,10 +107,22 @@ class App extends Component {
         }));
     };
 
-    toggleLaiban = (expression = 'screensaver') => {
+    toggleLaiban = (expression = 'screensaver', timerInMs = false) => {
         this.setState((state, props) => ({
             showLaiban: !state.showLaiban,
             laibanExpression: expression,
+        }));
+
+        if (typeof timerInMs === 'number' && timerInMs > 0) {
+            this.timeoutLaiban(timerInMs);
+        }
+    };
+
+    timeoutLaiban = (ms = 3000) => {
+        this.setState((state, props) => ({
+            laibanTimer: setTimeout(() => {
+                this.setState({ showLaiban: false });
+            }, ms),
         }));
     };
 
@@ -122,6 +135,7 @@ class App extends Component {
             actionButtonCallback,
             showLaiban,
             laibanExpression,
+            laibanTimer,
             loadingScreen,
             schoolId,
             schoolIsValid,
@@ -138,8 +152,12 @@ class App extends Component {
                     <Laiban
                         expression={laibanExpression.length > 0 ? laibanExpression : 'screensaver'}
                         onClick={() => {
-                            this.setState({ showLaiban: false });
+                            if (typeof laibanTimer === 'number') {
+                                clearTimeout(laibanTimer);
+                            }
+                            this.setState({ showLaiban: false, laibanTimer: false });
                         }}
+                        history={history}
                     />
                 </div>
             );
