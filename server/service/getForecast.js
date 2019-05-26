@@ -25,36 +25,45 @@ const getForecast = async (lon = '12.694454', lat = '56.046411') => {
             const currentDateFormatted = dateFns.format(currentDate, 'YYYYMMDDThhmmssZ', {
                 locale: sv,
             });
-            const timeSeries = json.timeSeries.map(item => item.validTime);
-            const closestForecast = json.timeSeries.filter(item =>
-                dateFns.isEqual(dateFns.closestTo(currentDateFormatted, timeSeries), item.validTime)
+            const timeSeriesDates = json.timeSeries.map(item => item.validTime);
+
+            const closestForecastIndex = dateFns.closestIndexTo(
+                currentDateFormatted,
+                timeSeriesDates
             );
+            const closestForecast = json.timeSeries[closestForecastIndex];
+            const targetForecasts = [];
 
-            let rain = false;
-            let temprature = 0;
+            targetForecasts.push(closestForecast);
 
-            if (closestForecast.length === 1) {
-                // http://opendata.smhi.se/apidocs/metfcst/parameters.html
-                // Weather Symbol - Wsymb2, consists of integers, 1 to 27. Every value represents a different kind of weather situation.
-                const Wsymb2 = closestForecast[0].parameters.filter(
-                    paramItem => paramItem.name === 'Wsymb2'
-                )[0];
-
-                // Air Temprature
-                const t = closestForecast[0].parameters.filter(
-                    paramItem => paramItem.name === 't'
-                )[0];
-
-                if (
-                    typeof Wsymb2.values !== 'undefined' &&
-                    Array.isArray(Wsymb2.values) &&
-                    Wsymb2.values.length > 0
-                ) {
-                    rain = Wsymb2.values[0] > 7 && Wsymb2.values[0] < 28;
+            let totalFutureForecastsToInclude = 1;
+            while (totalFutureForecastsToInclude > 0) {
+                const forecastIndex = totalFutureForecastsToInclude + closestForecastIndex;
+                if (typeof json.timeSeries[forecastIndex] !== 'undefined') {
+                    targetForecasts.push(json.timeSeries[forecastIndex]);
                 }
 
-                temprature = t.values[0];
+                totalFutureForecastsToInclude--;
             }
+
+            // Temprature
+            const temprature = closestForecast.parameters.filter(
+                paramItem => paramItem.name === 't'
+            )[0].values[0];
+
+            // Rain
+            const rain = targetForecasts.reduce((rain, currentForcast) => {
+                if (rain) {
+                    return rain;
+                }
+                // http://opendata.smhi.se/apidocs/metfcst/parameters.html
+                // Weather Symbol - Wsymb2, consists of integers, 1 to 27. Every value represents a different kind of weather situation.
+                const weatherSymbol = currentForcast.parameters.filter(
+                    paramItem => paramItem.name === 'Wsymb2'
+                )[0].values[0];
+
+                return typeof weatherSymbol === 'number' && weatherSymbol > 6 && weatherSymbol < 28;
+            }, false);
 
             return { rain: rain, temprature: temprature };
         });
