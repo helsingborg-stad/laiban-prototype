@@ -14,6 +14,7 @@ const netjet = require('netjet');
 
 const { schoolExists } = require('./lib/schoolExists');
 const { getSchoolResourceByDate } = require('./lib/getSchoolResourceByDate');
+const { getSchool } = require('./lib/getSchool');
 
 const { googleText2Speech } = require('./service/googleText2Speech');
 const { getForecast } = require('./service/getForecast');
@@ -39,6 +40,13 @@ app.get('/', (request, response) => {
 // API Endpoints
 app.get('/api/v1/version', (request, response) => {
     response.json({ version: packageJson.version });
+});
+
+app.get('/api/v1/school/:schoolId', async (request, response) => {
+    const { schoolId } = request.params;
+    const school = await getSchool(parseInt(schoolId));
+
+    response.json(school);
 });
 
 app.get('/api/v1/school/:schoolId/validate', async (request, response) => {
@@ -119,6 +127,10 @@ app.get('/api/v1/weekday', (request, response) => {
 
 app.get('/api/v1/clothing', (request, response) => {
     getForecast().then(forecast => {
+        // if (forecast) {
+        //     response.json(forecast);
+        //     return;
+        // }
         if (forecast.rain) {
             response.json({ weather: 'rain', weatherString: 'Det verkar vara regnigt ute. 🌧️' });
             return;
