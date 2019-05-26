@@ -285,14 +285,62 @@ class App extends Component {
                         <Route
                             path="/time"
                             render={() => (
-                                <div>
-                                    <SpeechBubbles
-                                        content={[
+                                <Resource
+                                    endpoint={`/api/v1/school/${schoolId}/clock`}
+                                    render={clockEvents => {
+                                        const manuScript = [
                                             `Klockan är ${dateFns.format(new Date(), 'HH:mm')}`,
-                                        ]}
-                                    />
-                                    <Clock />
-                                </div>
+                                        ];
+
+                                        if (clockEvents.length > 0) {
+                                            const today = new Date();
+                                            const day = today.getDate();
+                                            const month = today.getMonth();
+                                            const year = today.getFullYear();
+
+                                            const clockTimeEvents = clockEvents.map(event => {
+                                                const date = new Date();
+                                                date.setHours(event.time.split(':')[0]);
+                                                date.setMinutes(event.time.split(':')[1]);
+
+                                                return date;
+                                            });
+
+                                            const closestEventIndex = dateFns.closestIndexTo(
+                                                today,
+                                                clockTimeEvents
+                                            );
+
+                                            const differenceInMinutes = dateFns.differenceInMinutes(
+                                                clockTimeEvents[closestEventIndex],
+                                                today
+                                            );
+
+                                            const isIntheFuture = dateFns.isFuture(
+                                                clockTimeEvents[closestEventIndex]
+                                            );
+
+                                            if (
+                                                isIntheFuture &&
+                                                differenceInMinutes <= 30 &&
+                                                typeof clockEvents[closestEventIndex].event ===
+                                                    'string' &&
+                                                clockEvents[closestEventIndex].event.length > 0
+                                            ) {
+                                                manuScript.push(
+                                                    clockEvents[closestEventIndex].event
+                                                );
+                                            }
+                                        }
+
+                                        return (
+                                            <div>
+                                                <SpeechBubbles content={manuScript} />
+                                                <Clock events={clockEvents} />
+                                            </div>
+                                        );
+                                    }}
+                                />
                             )}
                         />
 

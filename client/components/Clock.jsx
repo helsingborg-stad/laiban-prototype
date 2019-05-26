@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
+import dateFns from 'date-fns';
 
 export default class Clock extends Component {
     render() {
@@ -14,7 +15,7 @@ export default class Clock extends Component {
                         alignItems="center"
                     >
                         <Grid item>
-                            <AnalogClock />
+                            <AnalogClock events={this.props.events} />
                         </Grid>
                     </Grid>
                 </div>
@@ -46,6 +47,8 @@ const AnalogClock = class extends Component {
     }
 
     render() {
+        const { events } = this.props;
+
         const hoursDegrees = this.state.date.getHours() * 30 + this.state.date.getMinutes() / 2;
         const minutesDegrees = this.state.date.getMinutes() * 6 + this.state.date.getSeconds() / 10;
         const secondsDegrees = this.state.date.getSeconds() * 6;
@@ -64,21 +67,7 @@ const AnalogClock = class extends Component {
 
         return (
             <div className="relative">
-                <div className="clock-symbols">
-                    <ClockSymbol hour={7} minute={30}>
-                        🥣
-                    </ClockSymbol>
-                    <ClockSymbol hour={10} minute={0}>
-                        🍎
-                    </ClockSymbol>
-                    <ClockSymbol hour={11} minute={30}>
-                        🍽
-                    </ClockSymbol>
-                    <ClockSymbol hour={2} minute={30}>
-                        🥪
-                    </ClockSymbol>
-                </div>
-
+                <ClockSymbols events={events} />
                 <div className="clock-container styling z-top">
                     <div id="clock" className="clock-content">
                         <svg className="background-numbers" viewBox="0 0 226.6 233.8">
@@ -122,6 +111,32 @@ const AnalogClock = class extends Component {
             </div>
         );
     }
+};
+
+const ClockSymbols = props => {
+    const { events } = props;
+
+    if (typeof events === 'undefined' || events.length <= 0) {
+        return null;
+    }
+
+    return (
+        <div className="clock-symbols">
+            {events.map(event => {
+                const today = new Date();
+                today.setHours(event.time.split(':')[0]);
+                today.setMinutes(event.time.split(':')[1]);
+
+                const hour = dateFns.format(today, 'h');
+                const minute = dateFns.format(today, 'm');
+                return (
+                    <ClockSymbol hour={hour} minute={minute}>
+                        {event.emoji}
+                    </ClockSymbol>
+                );
+            })}
+        </div>
+    );
 };
 
 const ClockSymbol = props => {

@@ -15,10 +15,11 @@ const netjet = require('netjet');
 const { schoolExists } = require('./lib/schoolExists');
 const { getSchoolResourceByDate } = require('./lib/getSchoolResourceByDate');
 const { getSchool } = require('./lib/getSchool');
+const { weekDay } = require('./lib/weekDay');
 
+const { fetchSchools } = require('./service/fetchSchools');
 const { googleText2Speech } = require('./service/googleText2Speech');
 const { getForecast } = require('./service/getForecast');
-const { weekDay } = require('./lib/weekDay');
 
 const packageJson = require(`${process.cwd()}/package.json`);
 
@@ -40,6 +41,12 @@ app.get('/', (request, response) => {
 // API Endpoints
 app.get('/api/v1/version', (request, response) => {
     response.json({ version: packageJson.version });
+});
+
+app.get('/api/v1/school', async (request, response) => {
+    const schools = await fetchSchools();
+
+    response.json(schools);
 });
 
 app.get('/api/v1/school/:schoolId', async (request, response) => {
@@ -76,6 +83,17 @@ app.get('/api/v1/school/:schoolId/calendar', async (request, response) => {
     }
 
     response.json(calendarManuscript);
+});
+
+app.get('/api/v1/school/:schoolId/clock', async (request, response) => {
+    const { schoolId } = request.params;
+    const school = await getSchool(parseInt(schoolId));
+
+    response.json(
+        typeof school.data.clock_events !== 'undefined' && Array.isArray(school.data.clock_events)
+            ? school.data.clock_events
+            : []
+    );
 });
 
 app.get('/api/v1/school/:schoolId/lunch', async (request, response) => {
