@@ -19,11 +19,22 @@ export default class SpeechBubbles extends Component {
                     onEnd={onEnd}
                     render={data =>
                         data.pieces.length > 0
-                            ? data.pieces.map(piece => (
-                                  <Bubble speechBubble>
-                                      {typeof piece === 'object' ? piece.text : piece}
-                                  </Bubble>
-                              ))
+                            ? data.pieces.map(piece => {
+                                  return (
+                                      <Bubble
+                                          speechBubble
+                                          image={
+                                              typeof piece === 'object' &&
+                                              typeof piece.image === 'string' &&
+                                              piece.image.length > 0
+                                                  ? piece.image
+                                                  : null
+                                          }
+                                      >
+                                          {typeof piece === 'object' ? piece.text : piece}
+                                      </Bubble>
+                                  );
+                              })
                             : null
                     }
                 />
