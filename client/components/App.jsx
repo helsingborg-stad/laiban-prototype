@@ -262,7 +262,13 @@ class App extends Component {
                                             <Clothing
                                                 weather={data.weather}
                                                 onEnd={() => {
-                                                    this.toggleActionButton('/', 'Vi är klara!');
+                                                    this.toggleActionButton(
+                                                        '/',
+                                                        'Vi är klara!',
+                                                        () => {
+                                                            this.toggleLaiban('happy', 4000);
+                                                        }
+                                                    );
                                                 }}
                                             />
                                         );
