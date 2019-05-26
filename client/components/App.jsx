@@ -160,6 +160,7 @@ class App extends Component {
                     <Laiban
                         expression={laibanExpression.length > 0 ? laibanExpression : 'screensaver'}
                         onClick={() => {
+                            // Clear timeout if we have any
                             if (typeof laibanTimer === 'number') {
                                 clearTimeout(laibanTimer);
                             }
