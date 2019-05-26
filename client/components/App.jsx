@@ -49,7 +49,7 @@ class App extends Component {
 
     componentDidMount() {
         // GA Tracking
-        this.getAnalyticsId().then(json => {
+        getAnalyticsId().then(json => {
             if (json.status !== 'success') {
                 return;
             }
@@ -66,11 +66,11 @@ class App extends Component {
         });
 
         // Set APP version
-        this.getCurrentVersion().then(json => {
+        getCurrentVersion().then(json => {
             this.setState({ appVersion: json.version, loadingScreen: false });
             // Check if new app version
             setInterval(() => {
-                this.getCurrentVersion().then(json => {
+                getCurrentVersion().then(json => {
                     if (json.version !== this.state.appVersion) {
                         // Reload client
                         window.location.reload(true);
@@ -80,23 +80,6 @@ class App extends Component {
         });
     }
 
-    getAnalyticsId = () => {
-        return fetch('/api/v1/ga', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        }).then(response => response.json());
-    };
-
-    getCurrentVersion = () => {
-        return fetch('/api/v1/version', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        }).then(response => response.json());
-    };
 
     toggleActionButton = (path = '', text = '') => {
         this.setState((state, props) => ({ actionButtonPath: path, actionButtonContent: text }));
@@ -303,5 +286,23 @@ const Footer = props => (
         </div>
     </footer>
 );
+
+const getAnalyticsId = () => {
+    return fetch('/api/v1/ga', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    }).then(response => response.json());
+};
+
+const getCurrentVersion = () => {
+    return fetch('/api/v1/version', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    }).then(response => response.json());
+};
 
 export default hot(module)(withRouter(App));
