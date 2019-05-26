@@ -19,13 +19,20 @@ export default class Laiban extends Component {
         expression: 'screensaver',
     };
 
+    componentWillMount() {
+        const { history } = this.props;
+        if (typeof history !== 'undefined') {
+            history.push('/');
+        }
+    }
+
     render() {
-        const { onClick } = this.props;
+        const { onClick, expression } = this.props;
         return (
             <div className="screen-float z-top" onClick={onClick}>
                 <div
                     className="screen-size laiban laiban-large"
-                    style={{ backgroundImage: `url(${LAIBAN_SCREENSAVER})` }}
+                    style={{ backgroundImage: `url(${Expressions[expression]})` }}
                 >
                     <span />
                 </div>
