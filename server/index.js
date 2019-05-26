@@ -2,6 +2,7 @@
 /* eslint-disable import/no-dynamic-require */
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 }
 
 const express = require('express');
@@ -11,9 +12,11 @@ const http = require('http');
 const https = require('https');
 const netjet = require('netjet');
 
+const { schoolExists } = require('./lib/schoolExists');
+const { getSchoolResourceByDate } = require('./lib/getSchoolResourceByDate');
+
 const { googleText2Speech } = require('./service/googleText2Speech');
 const { getForecast } = require('./service/getForecast');
-const { todaysLunch } = require('./lib/todaysLunch');
 const { weekDay } = require('./lib/weekDay');
 
 const packageJson = require(`${process.cwd()}/package.json`);
@@ -38,6 +41,67 @@ app.get('/api/v1/version', (request, response) => {
     response.json({ version: packageJson.version });
 });
 
+app.get('/api/v1/school/:schoolId/validate', async (request, response) => {
+    const { schoolId } = request.params;
+    const exists = await schoolExists(parseInt(schoolId));
+
+    response.json({ id: schoolId, exists: exists });
+});
+
+app.get('/api/v1/school/:schoolId/activity', async (request, response) => {
+    const { schoolId } = request.params;
+    const activity = await getSchoolResourceByDate(parseInt(schoolId), 'activities');
+
+    response.json(activity);
+});
+
+app.get('/api/v1/school/:schoolId/calendar', async (request, response) => {
+    const { schoolId } = request.params;
+    const event = await getSchoolResourceByDate(parseInt(schoolId), 'calendar_events');
+
+    const calendarManuscript = [];
+
+    calendarManuscript.push(weekDay());
+
+    if (typeof event.content !== 'undefined') {
+        calendarManuscript.push(event.content);
+    }
+
+    response.json(calendarManuscript);
+});
+
+app.get('/api/v1/school/:schoolId/lunch', async (request, response) => {
+    const { schoolId } = request.params;
+    const todaysLunch = await getSchoolResourceByDate(parseInt(schoolId), 'lunchMenu');
+    const todaysLunchScript = [];
+
+    if (typeof todaysLunch.dishes !== 'undefined' && todaysLunch.dishes.length > 0) {
+        todaysLunchScript.push('På matsedeln står det ..');
+
+        todaysLunch.dishes
+            .map(dish => {
+                // Rename "content" key to "text"
+                return { text: dish.content, image: dish.image };
+            })
+            .forEach(dish => {
+                if (typeof dish.image !== 'undefined' && dish.image.length > 0) {
+                    todaysLunchScript.push(dish);
+                    return;
+                }
+
+                todaysLunchScript.push(dish.content);
+            });
+    }
+
+    if (todaysLunch.error === 'string') {
+        todaysLunchScript.push(
+            'Idag ska köket överraska oss så jag vet inte vad det blir för mat.'
+        );
+    }
+
+    response.json(todaysLunchScript);
+});
+
 app.get('/api/v1/ga', (request, response) => {
     if (typeof process.env.GOOGLE_ANALYTICS_TRACKING_ID !== 'undefined') {
         response.json({
@@ -47,10 +111,6 @@ app.get('/api/v1/ga', (request, response) => {
         return;
     }
     response.json({ status: 'failed', gaTrackingId: false });
-});
-
-app.get('/api/v1/lunch', (request, response) => {
-    response.json({ todaysLunch: todaysLunch() });
 });
 
 app.get('/api/v1/weekday', (request, response) => {
