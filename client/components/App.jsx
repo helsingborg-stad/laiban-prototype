@@ -27,8 +27,8 @@ import tinyLaiban from '../assets/images/laiban/tiny.gif';
 
 // Menu Icons
 import lunchIcon from '../assets/images/home/home-plate@2x.png';
-import weatherIcon from '../assets/images/home/home-cloud-sun@2x.png';
-import clothingIcon from '../assets/images/home/home-playground@2x.png';
+import goingOutIcon from '../assets/images/home/home-going-out@2x.png';
+import activityIcon from '../assets/images/home/home-activity@2x.png';
 import clockIcon from '../assets/images/home/home-time@2x.png';
 import dayIcon from '../assets/images/home/home-schedule@2x.png';
 
@@ -197,7 +197,7 @@ class App extends Component {
                                                         links={[
                                                             {
                                                                 to: '/going-out',
-                                                                icon: clothingIcon,
+                                                                icon: goingOutIcon,
                                                                 content: 'Vi ska klä på oss',
                                                             },
                                                             {
@@ -224,7 +224,7 @@ class App extends Component {
                                                                 ? [
                                                                       {
                                                                           to: '/activity',
-                                                                          icon: dayIcon,
+                                                                          icon: activityIcon,
                                                                           content:
                                                                               'Vad ska vi göra idag?',
                                                                       },
