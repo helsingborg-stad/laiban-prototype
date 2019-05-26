@@ -12,9 +12,10 @@ import queryString from 'query-string';
 import Fab from './shared/Fab.jsx';
 import SpeechBubbles from './shared/SpeechBubbles.jsx';
 import Resource from './shared/Resource.jsx';
-
+import Menu from './shared/Menu.jsx';
+import ToggleLaiban from './ToggleLaiban.jsx';
 import Laiban from './Laiban.jsx';
-import Home from './Home.jsx';
+
 import Clothing from './Clothing.jsx';
 import Clock from './Clock.jsx';
 import Weather from './Weather.jsx';
@@ -23,6 +24,13 @@ import Calendar from './Calendar.jsx';
 import HomeIcon from '../assets/images/home-white.png';
 import playIcon from '../assets/images/play-white.png';
 import tinyLaiban from '../assets/images/laiban/tiny.gif';
+
+// Menu Icons
+import lunchIcon from '../assets/images/home/home-plate@2x.png';
+import weatherIcon from '../assets/images/home/home-cloud-sun@2x.png';
+import clothingIcon from '../assets/images/home/home-playground@2x.png';
+import clockIcon from '../assets/images/home/home-time@2x.png';
+import dayIcon from '../assets/images/home/home-schedule@2x.png';
 
 class App extends Component {
     state = {
@@ -174,7 +182,43 @@ class App extends Component {
                             render={() => (
                                 <div>
                                     <SpeechBubbles content={['Vad vill du veta?']} />
-                                    <Home toggleLaiban={this.toggleLaiban} />
+                                    <ToggleLaiban
+                                        toggleMethod={this.toggleLaiban}
+                                        expression={'screensaver'}
+                                        delay={120000 /* 2min */}
+                                    >
+                                        <div className="container space-top">
+                                            <Navigation
+                                                links={[
+                                                    {
+                                                        to: '/going-out',
+                                                        icon: clothingIcon,
+                                                        content: 'Vi ska klä på oss?',
+                                                    },
+                                                    {
+                                                        to: '/lunch',
+                                                        icon: lunchIcon,
+                                                        content: 'Vad blir det för mat idag?',
+                                                    },
+                                                    {
+                                                        to: '/time',
+                                                        icon: clockIcon,
+                                                        content: 'Vi ska klä på oss',
+                                                    },
+                                                    {
+                                                        to: '/calendar',
+                                                        icon: dayIcon,
+                                                        content: 'Vad är klockan?',
+                                                    },
+                                                    {
+                                                        to: '/activity',
+                                                        icon: dayIcon,
+                                                        content: 'Vad ska vi göra idag?',
+                                                    },
+                                                ]}
+                                            />
+                                        </div>
+                                    </ToggleLaiban>
                                 </div>
                             )}
                         />
@@ -292,6 +336,16 @@ class App extends Component {
         );
     }
 }
+
+const Navigation = props => (
+    <Menu container>
+        {props.links.map(link => (
+            <Menu item to={link.to} icon={link.icon}>
+                {link.content}
+            </Menu>
+        ))}
+    </Menu>
+);
 
 const Header = props => (
     <header className="header container-small relative">
