@@ -67,6 +67,7 @@
         "node-fetch": "^2.4.1",
         "nodemon": "^1.18.10",
         "prop-types": "^15.7.2",
+        "query-string": "^6.5.0",
         "react": "^16.8.4",
         "react-dom": "^16.8.4",
         "react-ga": "^2.5.7",
