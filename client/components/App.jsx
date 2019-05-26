@@ -48,18 +48,6 @@ class App extends Component {
         schoolIsValid: false,
     };
 
-    componentWillReceiveProps(nextProps, prevState) {
-        const { gaTracking } = this.state;
-        if (nextProps.location !== this.props.location && gaTracking) {
-            const { pathname } = nextProps.location;
-            ReactGA.event({
-                category: 'User',
-                action: 'Navigated',
-                label: pathname,
-            });
-        }
-    }
-
     componentWillMount() {
         // Get query string
         const queryStringObject = queryString.parse(window.location.search);
@@ -107,32 +95,17 @@ class App extends Component {
         });
     }
 
-    toggleActionButton = (path = '', text = '', callBack = false) => {
-        this.setState((state, props) => ({
-            actionButtonPath: path,
-            actionButtonContent: text,
-            actionButtonCallback: callBack,
-        }));
-    };
-
-    toggleLaiban = (expression = 'screensaver', hideLaibanTimerInMs = false) => {
-        this.setState((state, props) => ({
-            showLaiban: !state.showLaiban,
-            laibanExpression: expression,
-        }));
-
-        if (typeof hideLaibanTimerInMs === 'number' && hideLaibanTimerInMs > 0) {
-            this.hideLaibanTimer(hideLaibanTimerInMs);
+    componentWillReceiveProps(nextProps, prevState) {
+        const { gaTracking } = this.state;
+        if (nextProps.location !== this.props.location && gaTracking) {
+            const { pathname } = nextProps.location;
+            ReactGA.event({
+                category: 'User',
+                action: 'Navigated',
+                label: pathname,
+            });
         }
-    };
-
-    hideLaibanTimer = (ms = 3000) => {
-        this.setState((state, props) => ({
-            laibanTimer: setTimeout(() => {
-                this.setState({ showLaiban: false });
-            }, ms),
-        }));
-    };
+    }
 
     render() {
         const { location, history } = this.props;
@@ -361,6 +334,33 @@ class App extends Component {
             </div>
         );
     }
+
+    toggleActionButton = (path = '', text = '', callBack = false) => {
+        this.setState((state, props) => ({
+            actionButtonPath: path,
+            actionButtonContent: text,
+            actionButtonCallback: callBack,
+        }));
+    };
+
+    toggleLaiban = (expression = 'screensaver', hideLaibanTimerInMs = false) => {
+        this.setState((state, props) => ({
+            showLaiban: !state.showLaiban,
+            laibanExpression: expression,
+        }));
+
+        if (typeof hideLaibanTimerInMs === 'number' && hideLaibanTimerInMs > 0) {
+            this.hideLaibanTimer(hideLaibanTimerInMs);
+        }
+    };
+
+    hideLaibanTimer = (ms = 3000) => {
+        this.setState((state, props) => ({
+            laibanTimer: setTimeout(() => {
+                this.setState({ showLaiban: false });
+            }, ms),
+        }));
+    };
 }
 
 const Navigation = props => (
