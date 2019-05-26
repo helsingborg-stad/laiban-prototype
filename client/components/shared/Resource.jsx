@@ -21,7 +21,7 @@ export default class Resource extends Component {
         },
     };
 
-    componentDidMount() {
+    componentWillMount() {
         const { endpoint, method, headers, body, onMount } = this.props;
 
         if (typeof onMount !== 'undefined') {
