@@ -187,7 +187,7 @@ class App extends Component {
                                         render={todaysActivity => (
                                             <div>
                                                 <SpeechBubbles content={['Vad vill du veta?']} />
-                                                <ShowLaiban
+                                                <ShowLaiban /* Show laiban when idle for X minutes */
                                                     toggleMethod={this.toggleLaiban}
                                                     expression={'screensaver'}
                                                     delay={120000 /* 2min */}
