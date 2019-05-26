@@ -12,7 +12,6 @@ export default class SpeechBubbles extends Component {
 
     render() {
         const { content, onEnd } = this.props;
-        console.log(content);
         return (
             <div className="container-small">
                 <Manuscript
@@ -21,10 +20,10 @@ export default class SpeechBubbles extends Component {
                     render={data =>
                         data.pieces.length > 0
                             ? data.pieces.map(piece => (
-                                <Bubble speechBubble>
-                                    {typeof piece === 'object' ? piece.text : piece}
-                                </Bubble>
-                            ))
+                                  <Bubble speechBubble>
+                                      {typeof piece === 'object' ? piece.text : piece}
+                                  </Bubble>
+                              ))
                             : null
                     }
                 />

@@ -187,39 +187,38 @@ class App extends Component {
                                         toggleMethod={this.toggleLaiban}
                                         expression={'screensaver'}
                                         delay={120000 /* 2min */}
-                                    >
-                                        <div className="container space-top">
-                                            <Navigation
-                                                links={[
-                                                    {
-                                                        to: '/going-out',
-                                                        icon: clothingIcon,
-                                                        content: 'Vi ska klä på oss',
-                                                    },
-                                                    {
-                                                        to: '/lunch',
-                                                        icon: lunchIcon,
-                                                        content: 'Vad blir det för mat idag?',
-                                                    },
-                                                    {
-                                                        to: '/time',
-                                                        icon: clockIcon,
-                                                        content: 'Vad är klockan?',
-                                                    },
-                                                    {
-                                                        to: '/calendar',
-                                                        icon: dayIcon,
-                                                        content: 'Vad är det för dag idag?',
-                                                    },
-                                                    {
-                                                        to: '/activity',
-                                                        icon: dayIcon,
-                                                        content: 'Vad ska vi göra idag?',
-                                                    },
-                                                ]}
-                                            />
-                                        </div>
-                                    </ShowLaiban>
+                                    />
+                                    <div className="container space-top">
+                                        <Navigation
+                                            links={[
+                                                {
+                                                    to: '/going-out',
+                                                    icon: clothingIcon,
+                                                    content: 'Vi ska klä på oss',
+                                                },
+                                                {
+                                                    to: '/lunch',
+                                                    icon: lunchIcon,
+                                                    content: 'Vad blir det för mat idag?',
+                                                },
+                                                {
+                                                    to: '/time',
+                                                    icon: clockIcon,
+                                                    content: 'Vad är klockan?',
+                                                },
+                                                {
+                                                    to: '/calendar',
+                                                    icon: dayIcon,
+                                                    content: 'Vad är det för dag idag?',
+                                                },
+                                                {
+                                                    to: '/activity',
+                                                    icon: dayIcon,
+                                                    content: 'Vad ska vi göra idag?',
+                                                },
+                                            ]}
+                                        />
+                                    </div>
                                 </div>
                             )}
                         />
