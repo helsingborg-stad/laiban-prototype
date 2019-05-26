@@ -63,8 +63,23 @@ const AnalogClock = class extends Component {
         };
 
         return (
-            <div>
-                <div className="clock-container styling">
+            <div className="relative">
+                <div className="clock-symbols">
+                    <ClockSymbol hour={7} minute={30}>
+                        🥣
+                    </ClockSymbol>
+                    <ClockSymbol hour={10} minute={0}>
+                        🍎
+                    </ClockSymbol>
+                    <ClockSymbol hour={11} minute={30}>
+                        🍽
+                    </ClockSymbol>
+                    <ClockSymbol hour={2} minute={30}>
+                        🥪
+                    </ClockSymbol>
+                </div>
+
+                <div className="clock-container styling z-top">
                     <div id="clock" className="clock-content">
                         <svg className="background-numbers" viewBox="0 0 226.6 233.8">
                             <path
@@ -107,4 +122,22 @@ const AnalogClock = class extends Component {
             </div>
         );
     }
+};
+
+const ClockSymbol = props => {
+    let degrees = 0;
+    degrees = props.hour * 30 + degrees;
+    degrees = props.minute * 0.5 + degrees;
+
+    if (typeof props.deg === 'number' && props.deg > 0) {
+        degrees = props.deg;
+    }
+
+    return (
+        <div className="clock-symbol" style={{ transform: `rotateZ(${degrees}deg)` }}>
+            <div className="clock-symbol__inner" style={{ transform: `rotateZ(-${degrees}deg)` }}>
+                {props.children}
+            </div>
+        </div>
+    );
 };

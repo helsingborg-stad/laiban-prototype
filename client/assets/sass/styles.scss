@@ -289,5 +289,45 @@ a {
 }
 
 .space-top {
-    margin-top: $base * 6;
+    margin-top: $base * 4;
+}
+
+.clock-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translatey(-50%);
+}
+
+$clock-float-container-offset: 104;
+
+.clock-symbols {
+    width: 408 + $clock-float-container-offset * 1px;
+    height: 408 + $clock-float-container-offset * 1px;
+    background: rgba(255,255,255,0.30);
+    border-radius: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.clock-symbol {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.clock-symbol__inner {
+    font-size: 40px;
+    padding-top: 2px;
+    display: inline-block;
+    text-align: center;
+    width: 40px;
+    height: 40px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    margin-left: 4px;
+    margin-right: 4px;
+    line-height: 1;
 }
