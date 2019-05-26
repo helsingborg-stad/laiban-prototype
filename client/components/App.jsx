@@ -13,7 +13,7 @@ import Fab from './shared/Fab.jsx';
 import SpeechBubbles from './shared/SpeechBubbles.jsx';
 import Resource from './shared/Resource.jsx';
 import Menu from './shared/Menu.jsx';
-import ToggleLaiban from './ToggleLaiban.jsx';
+import ShowLaiban from './ShowLaiban.jsx';
 import Laiban from './Laiban.jsx';
 
 import Clothing from './Clothing.jsx';
@@ -182,7 +182,7 @@ class App extends Component {
                             render={() => (
                                 <div>
                                     <SpeechBubbles content={['Vad vill du veta?']} />
-                                    <ToggleLaiban
+                                    <ShowLaiban
                                         toggleMethod={this.toggleLaiban}
                                         expression={'screensaver'}
                                         delay={120000 /* 2min */}
@@ -218,7 +218,7 @@ class App extends Component {
                                                 ]}
                                             />
                                         </div>
-                                    </ToggleLaiban>
+                                    </ShowLaiban>
                                 </div>
                             )}
                         />

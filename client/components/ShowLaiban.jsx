@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
 
-export default class ToggleLaiban extends Component {
+export default class ShowLaiban extends Component {
     static propTypes = {
         toggleMethod: PropTypes.func,
         expression: PropTypes.string,
