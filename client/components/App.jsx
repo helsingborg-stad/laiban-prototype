@@ -193,7 +193,7 @@ class App extends Component {
                                                     {
                                                         to: '/going-out',
                                                         icon: clothingIcon,
-                                                        content: 'Vi ska klä på oss?',
+                                                        content: 'Vi ska klä på oss',
                                                     },
                                                     {
                                                         to: '/lunch',
@@ -203,12 +203,12 @@ class App extends Component {
                                                     {
                                                         to: '/time',
                                                         icon: clockIcon,
-                                                        content: 'Vi ska klä på oss',
+                                                        content: 'Vad är klockan?',
                                                     },
                                                     {
                                                         to: '/calendar',
                                                         icon: dayIcon,
-                                                        content: 'Vad är klockan?',
+                                                        content: 'Vad är det för dag idag?',
                                                     },
                                                     {
                                                         to: '/activity',
@@ -320,17 +320,8 @@ class App extends Component {
                                 </div>
                             )}
                         />
-
-                        {/* <Route
-                            path="/weather"
-                            render={() => (
-                                <div>
-                                    <SpeechBubbles content={['Vad blir det för väder?']} />
-                                    <Weather />
-                                </div>
-                            )}
-                        /> */}
                     </main>
+
                     <Footer
                         location={location}
                         actionButtonPath={actionButtonPath}
