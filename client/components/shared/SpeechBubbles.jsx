@@ -6,12 +6,13 @@ import Bubble from './Bubble.jsx';
 
 export default class SpeechBubbles extends Component {
     static propTypes = {
-        content: PropTypes.arrayOf(PropTypes.string),
+        content: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.object])),
         onEnd: PropTypes.func,
     };
 
     render() {
         const { content, onEnd } = this.props;
+        console.log(content);
         return (
             <div className="container-small">
                 <Manuscript
@@ -19,7 +20,11 @@ export default class SpeechBubbles extends Component {
                     onEnd={onEnd}
                     render={data =>
                         data.pieces.length > 0
-                            ? data.pieces.map(content => <Bubble speechBubble>{content}</Bubble>)
+                            ? data.pieces.map(piece => (
+                                <Bubble speechBubble>
+                                    {typeof piece === 'object' ? piece.text : piece}
+                                </Bubble>
+                            ))
                             : null
                     }
                 />
