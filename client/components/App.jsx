@@ -31,6 +31,7 @@ class App extends Component {
         disableSpeech: false,
         actionButtonPath: '',
         actionButtonContent: '',
+        actionButtonCallback: false,
         showLaiban: true,
         laibanExpression: '',
         gaTracking: false,
@@ -97,9 +98,12 @@ class App extends Component {
         });
     }
 
-
-    toggleActionButton = (path = '', text = '') => {
-        this.setState((state, props) => ({ actionButtonPath: path, actionButtonContent: text }));
+    toggleActionButton = (path = '', text = '', callBack = false) => {
+        this.setState((state, props) => ({
+            actionButtonPath: path,
+            actionButtonContent: text,
+            actionButtonCallback: callBack,
+        }));
     };
 
     toggleLaiban = (expression = 'screensaver') => {
@@ -110,11 +114,12 @@ class App extends Component {
     };
 
     render() {
-        const { location } = this.props;
+        const { location, history } = this.props;
         const {
             disableSpeech,
             actionButtonPath,
             actionButtonContent,
+            actionButtonCallback,
             showLaiban,
             laibanExpression,
             loadingScreen,
@@ -262,6 +267,7 @@ class App extends Component {
                         location={location}
                         actionButtonPath={actionButtonPath}
                         actionButtonContent={actionButtonContent}
+                        actionButtonCallback={actionButtonCallback}
                     />
                 </div>
             </div>
@@ -285,18 +291,21 @@ const Footer = props => (
                     )}
                 </Grid>
                 <Grid item>
-                    {props.location.pathname !== '/' && props.actionButtonPath.length > 0 && (
-                        <Fab
-                            to={props.actionButtonPath}
-                            icon={props.actionButtonContent.length > 0 ? null : playIcon}
-                            text={
-                                props.actionButtonContent.length > 0
-                                    ? props.actionButtonContent
-                                    : ''
-                            }
-                            color="success"
-                        />
-                    )}
+                    {props.location.pathname !== '/' &&
+                        (props.actionButtonPath.length > 0 ||
+                            props.actionButtonCallback !== false) && (
+                            <Fab
+                                to={props.actionButtonPath}
+                                icon={props.actionButtonContent.length > 0 ? null : playIcon}
+                                text={
+                                    props.actionButtonContent.length > 0
+                                        ? props.actionButtonContent
+                                        : ''
+                                }
+                                onClickCallback={props.actionButtonCallback}
+                                color="success"
+                            />
+                        )}
                 </Grid>
             </Grid>
         </div>
