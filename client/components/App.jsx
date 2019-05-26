@@ -7,6 +7,7 @@ import { withRouter, BrowserRouter as Router, Route, Link } from 'react-router-d
 import Grid from '@material-ui/core/Grid';
 import dateFns from 'date-fns';
 import ReactGA from 'react-ga';
+import queryString from 'query-string';
 
 import Fab from './shared/Fab.jsx';
 import SpeechBubbles from './shared/SpeechBubbles.jsx';
@@ -33,6 +34,8 @@ class App extends Component {
         showLaiban: true,
         laibanExpression: '',
         gaTracking: false,
+        schoolId: 0,
+        schoolIsValid: false,
     };
 
     componentWillReceiveProps(nextProps, prevState) {
@@ -48,6 +51,20 @@ class App extends Component {
     }
 
     componentDidMount() {
+        // Get query string
+        const queryStringObject = queryString.parse(window.location.search);
+
+        // Validate school by ID
+        if (typeof queryStringObject.school !== 'undefined') {
+            const { school } = queryStringObject;
+
+            validateSchool(school).then(school => {
+                if (typeof school.exists !== 'undefined' && school.exists) {
+                    this.setState({ schoolId: school.id, schoolIsValid: true });
+                }
+            });
+        }
+
         // GA Tracking
         getAnalyticsId().then(json => {
             if (json.status !== 'success') {
@@ -101,9 +118,11 @@ class App extends Component {
             showLaiban,
             laibanExpression,
             loadingScreen,
+            schoolId,
+            schoolIsValid,
         } = this.state;
 
-        if (loadingScreen) {
+        if (loadingScreen || !schoolIsValid) {
             return <Laiban expression={'sleepy'} />;
         }
 
@@ -286,6 +305,15 @@ const Footer = props => (
         </div>
     </footer>
 );
+
+const validateSchool = schoolId => {
+    return fetch(`/api/v1/school/${schoolId}/validate`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    }).then(response => response.json());
+};
 
 const getAnalyticsId = () => {
     return fetch('/api/v1/ga', {
