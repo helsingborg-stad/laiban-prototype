@@ -50,7 +50,7 @@ class App extends Component {
         }
     }
 
-    componentDidMount() {
+    componentWillMount() {
         // Get query string
         const queryStringObject = queryString.parse(window.location.search);
 
