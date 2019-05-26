@@ -165,10 +165,24 @@ a {
     height: 80px;
 }
 
+
+.bubble__image {
+    margin-left: $base * 3;
+    width: 100%;
+    max-width: 136px;
+    height: auto;
+}
+
+.bubble__image img {
+    width: 136px;
+    height: 136px;
+    border-radius: 100%;
+}
+
 .speech-bubble {
     @extend .bubble;
-    padding-top: $base * 4;
-    padding-bottom: $base * 4;
+    padding-top: $base * 3;
+    padding-bottom: $base * 3;
     &:before {
         @include arrow('up', 24px, $white);
         content: '';
