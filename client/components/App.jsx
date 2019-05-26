@@ -115,18 +115,18 @@ class App extends Component {
         }));
     };
 
-    toggleLaiban = (expression = 'screensaver', timerInMs = false) => {
+    toggleLaiban = (expression = 'screensaver', hideLaibanTimerInMs = false) => {
         this.setState((state, props) => ({
             showLaiban: !state.showLaiban,
             laibanExpression: expression,
         }));
 
-        if (typeof timerInMs === 'number' && timerInMs > 0) {
-            this.timeoutLaiban(timerInMs);
+        if (typeof hideLaibanTimerInMs === 'number' && hideLaibanTimerInMs > 0) {
+            this.hideLaibanTimer(hideLaibanTimerInMs);
         }
     };
 
-    timeoutLaiban = (ms = 3000) => {
+    hideLaibanTimer = (ms = 3000) => {
         this.setState((state, props) => ({
             laibanTimer: setTimeout(() => {
                 this.setState({ showLaiban: false });
