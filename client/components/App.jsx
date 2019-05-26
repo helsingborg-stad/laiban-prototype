@@ -337,7 +337,7 @@ class App extends Component {
 const Navigation = props => (
     <Menu container>
         {props.links.map(link => (
-            <Menu item to={link.to} icon={link.icon}>
+            <Menu item to={link.to} icon={link.icon} columnSize={props.links.length > 4 ? 4 : 6}>
                 {link.content}
             </Menu>
         ))}

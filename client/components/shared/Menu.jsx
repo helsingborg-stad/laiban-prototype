@@ -10,22 +10,23 @@ export default class Menu extends Component {
         item: PropTypes.bool,
         to: PropTypes.string,
         icon: PropTypes.string,
+        columnSize: PropTypes.number,
     };
 
     static defaultProps = {
         item: true,
+        columnSize: 4,
     };
 
     render() {
         {
-            const { container, to, icon, children } = this.props;
-
+            const { container, to, icon, children, columnSize } = this.props;
             if (container) {
                 return <MenuContainer>{children}</MenuContainer>;
             }
 
             return (
-                <MenuItem icon={icon} to={to}>
+                <MenuItem icon={icon} to={to} columnSize={columnSize}>
                     {children}
                 </MenuItem>
             );
@@ -34,7 +35,7 @@ export default class Menu extends Component {
 }
 
 const MenuItem = props => (
-    <Grid item xs={6}>
+    <Grid item xs={props.columnSize}>
         <Link to={props.to}>
             <div className="text-center">
                 <div className="menu-icon">
