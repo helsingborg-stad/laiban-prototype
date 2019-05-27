@@ -115,7 +115,7 @@ app.get('/api/v1/school/:schoolId/lunch', async (request, response) => {
                     return;
                 }
 
-                todaysLunchScript.push(dish.content);
+                todaysLunchScript.push(dish.text);
             });
     }
 
