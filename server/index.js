@@ -148,6 +148,14 @@ app.get('/api/v1/lunch/:schoolId', async (request, response) => {
             })
             .forEach(dish => {
                 if (typeof dish.image !== 'undefined' && dish.image.length > 0) {
+                    const extension = dish.image.match(/.(png|jpg|jpeg)$/g);
+                    const thumbnailSuffix = '-150x150';
+                    if (extension[0]) {
+                        dish.image = dish.image.replace(
+                            extension[0],
+                            `${thumbnailSuffix}${extension[0]}`
+                        );
+                    }
                     todaysLunchScript.push(dish);
                     return;
                 }
