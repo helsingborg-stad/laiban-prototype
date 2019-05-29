@@ -4,13 +4,31 @@ const fetch = require('node-fetch');
 const dateFns = require('date-fns');
 const sv = require('date-fns/locale/sv');
 
+const fetchForecast = async (lon = '12.694454', lat = '56.046411') => {
+    return fetchForecastData(lon, lat).then(forecast => {
+        if (forecast.rain) {
+            return { weather: 'rain', weatherString: 'Det verkar vara regnigt ute. 🌧️' };
+        }
+
+        if (forecast.temprature > 15) {
+            return { weather: 'hot', weatherString: 'Det verkar vara varmt ute. ☀️' };
+        }
+
+        if (forecast.temprature > 10) {
+            return { weather: 'neutral', weatherString: 'Det verkar vara lite svalt ute.' };
+        }
+
+        return { weather: 'cold', weatherString: 'Det verkar vara kallt ute. 🥶' };
+    });
+};
+
 /**
- * Get latest weather forecast based on a geographical location using SMHI open data API.
+ * Fetch latest weather forecast based on a geographical location using SMHI open data API.
  * @param {string} lon Longitude of the geographical location
  * @param {string} lat Latitude of the geographical location
  * @return promise
  */
-const getForecast = async (lon = '12.694454', lat = '56.046411') => {
+const fetchForecastData = async (lon, lat) => {
     const url = `https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/${lon}/lat/${lat}/data.json`;
 
     return fetch(url)
@@ -69,4 +87,4 @@ const getForecast = async (lon = '12.694454', lat = '56.046411') => {
         });
 };
 
-module.exports = { getForecast };
+module.exports = { fetchForecast };

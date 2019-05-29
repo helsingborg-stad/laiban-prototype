@@ -19,7 +19,7 @@ const { weekDay } = require('./lib/weekDay');
 
 const { fetchSchools } = require('./service/fetchSchools');
 const { googleText2Speech } = require('./service/googleText2Speech');
-const { getForecast } = require('./service/getForecast');
+const { fetchForecast } = require('./service/fetchForecast');
 
 const packageJson = require(`${process.cwd()}/package.json`);
 
