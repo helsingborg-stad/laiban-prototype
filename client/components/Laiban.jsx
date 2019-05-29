@@ -9,19 +9,21 @@ import LAIBAN_SCREENSAVER from '../assets/images/laiban/screensaver.gif';
 import LAIBAN_SLEEPY from '../assets/images/laiban/sleepy.gif';
 import LAIBAN_SLURP from '../assets/images/laiban/slurp.gif';
 
-export default class Laiban extends Component {
+class Laiban extends Component {
     static propTypes = {
         expression: PropTypes.string,
         onClick: PropTypes.func,
+        returnToHome: PropTypes.bool,
     };
 
     static defaultProps = {
         expression: 'screensaver',
+        returnToHome: true,
     };
 
     componentWillMount() {
-        const { history } = this.props;
-        if (typeof history !== 'undefined') {
+        const { history, returnToHome } = this.props;
+        if (typeof history !== 'undefined' && returnToHome) {
             history.push('/');
         }
     }
@@ -49,3 +51,5 @@ const Expressions = {
     sleepy: LAIBAN_SLEEPY,
     slurp: LAIBAN_SLURP,
 };
+
+export { Expressions, Laiban };
