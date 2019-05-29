@@ -13,8 +13,8 @@ import Fab from './shared/Fab.jsx';
 import SpeechBubbles from './shared/SpeechBubbles.jsx';
 import Resource from './shared/Resource.jsx';
 import Menu from './shared/Menu.jsx';
-import ShowLaiban from './ShowLaiban.jsx';
-import Laiban from './Laiban.jsx';
+import ShowLaiban from './shared/ShowLaiban.jsx';
+import { Laiban, Expressions } from './Laiban.jsx';
 
 import Clothing from './Clothing.jsx';
 import Clock from './Clock.jsx';
@@ -156,7 +156,7 @@ class App extends Component {
                             render={() => (
                                 <div>
                                     <Resource
-                                        endpoint={`/api/v1/school/${schoolId}/activity`}
+                                        endpoint={`/api/v1/activity/${schoolId}`}
                                         render={todaysActivity => (
                                             <div>
                                                 <SpeechBubbles content={['Vad vill du veta?']} />
@@ -218,7 +218,7 @@ class App extends Component {
                             render={() => (
                                 <div>
                                     <Resource
-                                        endpoint="/api/v1/clothing"
+                                        endpoint={`/api/v1/clothing/${schoolId}`}
                                         render={data => {
                                             return (
                                                 <SpeechBubbles
@@ -246,7 +246,7 @@ class App extends Component {
                             path="/clothing"
                             render={() => (
                                 <Resource
-                                    endpoint="/api/v1/clothing"
+                                    endpoint={`/api/v1/clothing/${schoolId}`}
                                     render={data => {
                                         return (
                                             <Clothing
@@ -274,7 +274,7 @@ class App extends Component {
                             path="/lunch"
                             render={() => (
                                 <Resource
-                                    endpoint={`/api/v1/school/${schoolId}/lunch`}
+                                    endpoint={`/api/v1/lunch/${schoolId}`}
                                     render={todaysLunchScript => (
                                         <SpeechBubbles content={todaysLunchScript} />
                                     )}
@@ -286,7 +286,7 @@ class App extends Component {
                             path="/time"
                             render={() => (
                                 <Resource
-                                    endpoint={`/api/v1/school/${schoolId}/clock`}
+                                    endpoint={`/api/v1/clock/${schoolId}`}
                                     render={clockEvents => {
                                         const manuScript = [
                                             `Klockan är ${dateFns.format(new Date(), 'HH:mm')}`,
@@ -349,7 +349,7 @@ class App extends Component {
                             render={() => (
                                 <div>
                                     <Resource
-                                        endpoint={`/api/v1/school/${schoolId}/calendar`}
+                                        endpoint={`/api/v1/calendar/${schoolId}`}
                                         render={calendarManuscript => (
                                             <SpeechBubbles content={calendarManuscript} />
                                         )}
@@ -364,8 +364,8 @@ class App extends Component {
                             render={() => (
                                 <div>
                                     <Resource
-                                        endpoint={`/api/v1/school/${schoolId}/activity`}
                                         render={data => <SpeechBubbles content={data.content} />}
+                                        endpoint={`/api/v1/activity/${schoolId}`}
                                     />
                                 </div>
                             )}
@@ -459,7 +459,7 @@ const Footer = props => (
 );
 
 const validateSchool = schoolId => {
-    return fetch(`/api/v1/school/${schoolId}/validate`, {
+    return fetch(`/api/v1/validate/${schoolId}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
