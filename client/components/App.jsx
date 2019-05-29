@@ -49,6 +49,22 @@ class App extends Component {
     };
 
     componentWillMount() {
+        const imagesToPreload = Object.values(Expressions);
+        imagesToPreload.push(
+            dayIcon,
+            clockIcon,
+            activityIcon,
+            goingOutIcon,
+            lunchIcon,
+            playIcon,
+            tinyLaiban
+        );
+        Object.values(Expressions).forEach(gif => {
+            const img = new Image();
+            img.src = gif;
+            console.log(gif);
+        });
+
         // Get query string
         const queryStringObject = queryString.parse(window.location.search);
 
