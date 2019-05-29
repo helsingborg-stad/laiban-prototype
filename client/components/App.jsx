@@ -176,7 +176,7 @@ class App extends Component {
                                         render={todaysActivity => (
                                             <div>
                                                 <SpeechBubbles content={['Vad vill du veta?']} />
-                                                <ShowLaiban /* Show laiban when idle for X minutes */
+                                                <ShowLaiban
                                                     toggleMethod={this.toggleLaiban}
                                                     expression={'screensaver'}
                                                     delay={120000 /* 2min */}
@@ -292,7 +292,14 @@ class App extends Component {
                                 <Resource
                                     endpoint={`/api/v1/lunch/${schoolId}`}
                                     render={todaysLunchScript => (
-                                        <SpeechBubbles content={todaysLunchScript} />
+                                        <SpeechBubbles content={todaysLunchScript}>
+                                            <ShowLaiban
+                                                toggleMethod={this.toggleLaiban}
+                                                expression={'slurp'}
+                                                delay={2000}
+                                                hideTimerInMs={3000}
+                                            />
+                                        </SpeechBubbles>
                                     )}
                                 />
                             )}
@@ -367,7 +374,14 @@ class App extends Component {
                                     <Resource
                                         endpoint={`/api/v1/calendar/${schoolId}`}
                                         render={calendarManuscript => (
-                                            <SpeechBubbles content={calendarManuscript} />
+                                            <SpeechBubbles content={calendarManuscript}>
+                                                <ShowLaiban
+                                                    toggleMethod={this.toggleLaiban}
+                                                    expression={'ok'}
+                                                    delay={2500}
+                                                    hideTimerInMs={3500}
+                                                />
+                                            </SpeechBubbles>
                                         )}
                                     />
                                     <Calendar date={new Date()} />
@@ -380,8 +394,17 @@ class App extends Component {
                             render={() => (
                                 <div>
                                     <Resource
-                                        render={data => <SpeechBubbles content={data.content} />}
                                         endpoint={`/api/v1/activity/${schoolId}`}
+                                        render={data => (
+                                            <SpeechBubbles content={data.content}>
+                                                <ShowLaiban
+                                                    toggleMethod={this.toggleLaiban}
+                                                    expression={'happy'}
+                                                    delay={2500}
+                                                    hideTimerInMs={3500}
+                                                />
+                                            </SpeechBubbles>
+                                        )}
                                     />
                                 </div>
                             )}
