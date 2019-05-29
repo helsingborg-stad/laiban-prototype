@@ -11,13 +11,14 @@ const path = require('path');
 const http = require('http');
 const https = require('https');
 const netjet = require('netjet');
+const dateFns = require('date-fns');
+const sv = require('date-fns/locale/sv');
 
 const { schoolExists } = require('./lib/schoolExists');
 const { getSchoolResourceByDate } = require('./lib/getSchoolResourceByDate');
 const { getSchool } = require('./lib/getSchool');
-const { weekDay } = require('./lib/weekDay');
 
-const { fetchSchools } = require('./service/fetchSchools');
+const { fetchSchools, clearCache } = require('./service/fetchSchools');
 const { googleText2Speech } = require('./service/googleText2Speech');
 const { fetchForecast } = require('./service/fetchForecast');
 
@@ -35,12 +36,45 @@ app.use(express.static(`${process.cwd()}/public`, { maxage: '2h' }));
 
 // Static
 app.get('/', (request, response) => {
+    res.set('Cache-Control', 'public, max-age=31557600');
     response.sendFile(path.join(`${process.cwd()}/public/index.html`));
 });
 
-// API Endpoints
+// POST
+app.post('/api/v1/text2Speech', (request, response) => {
+    const { text } = request.body;
+
+    if (typeof text !== 'string' || text.length <= 0) {
+        response.json({ status: 'failed' });
+        return;
+    }
+
+    googleText2Speech(text).then(result => {
+        response.json(result);
+    });
+});
+
+// DELETE
+app.delete('/api/v1/cache', async (request, response) => {
+    await clearCache();
+
+    response.status(204).send('Deleted cache');
+});
+
+// GET
 app.get('/api/v1/version', (request, response) => {
     response.json({ version: packageJson.version });
+});
+
+app.get('/api/v1/ga', (request, response) => {
+    if (typeof process.env.GOOGLE_ANALYTICS_TRACKING_ID !== 'undefined') {
+        response.json({
+            status: 'success',
+            gaTrackingId: process.env.GOOGLE_ANALYTICS_TRACKING_ID,
+        });
+        return;
+    }
+    response.json({ status: 'failed', gaTrackingId: false });
 });
 
 app.get('/api/v1/school', async (request, response) => {
@@ -56,27 +90,30 @@ app.get('/api/v1/school/:schoolId', async (request, response) => {
     response.json(school);
 });
 
-app.get('/api/v1/school/:schoolId/validate', async (request, response) => {
+app.get('/api/v1/validate/:schoolId', async (request, response) => {
     const { schoolId } = request.params;
     const exists = await schoolExists(parseInt(schoolId));
 
     response.json({ id: schoolId, exists: exists });
 });
 
-app.get('/api/v1/school/:schoolId/activity', async (request, response) => {
+app.get('/api/v1/activity/:schoolId', async (request, response) => {
     const { schoolId } = request.params;
     const activity = await getSchoolResourceByDate(parseInt(schoolId), 'activities');
 
     response.json(activity);
 });
 
-app.get('/api/v1/school/:schoolId/calendar', async (request, response) => {
+app.get('/api/v1/calendar/:schoolId', async (request, response) => {
     const { schoolId } = request.params;
     const event = await getSchoolResourceByDate(parseInt(schoolId), 'calendar_events');
+    const dayOfMonth = dateFns.format(new Date(), 'Do', { locale: sv });
+    const weekDay = dateFns.format(new Date(), 'dddd', { locale: sv });
+    const month = dateFns.format(new Date(), 'MMMM', { locale: sv });
 
     const calendarManuscript = [];
 
-    calendarManuscript.push(weekDay());
+    calendarManuscript.push(`Idag är det ${weekDay} den ${dayOfMonth} ${month}`);
 
     if (typeof event.content !== 'undefined') {
         calendarManuscript.push(event.content);
@@ -85,7 +122,7 @@ app.get('/api/v1/school/:schoolId/calendar', async (request, response) => {
     response.json(calendarManuscript);
 });
 
-app.get('/api/v1/school/:schoolId/clock', async (request, response) => {
+app.get('/api/v1/clock/:schoolId', async (request, response) => {
     const { schoolId } = request.params;
     const school = await getSchool(parseInt(schoolId));
 
@@ -96,7 +133,7 @@ app.get('/api/v1/school/:schoolId/clock', async (request, response) => {
     );
 });
 
-app.get('/api/v1/school/:schoolId/lunch', async (request, response) => {
+app.get('/api/v1/lunch/:schoolId', async (request, response) => {
     const { schoolId } = request.params;
     const todaysLunch = await getSchoolResourceByDate(parseInt(schoolId), 'lunchMenu');
     const todaysLunchScript = [];
@@ -128,53 +165,14 @@ app.get('/api/v1/school/:schoolId/lunch', async (request, response) => {
     response.json(todaysLunchScript);
 });
 
-app.get('/api/v1/ga', (request, response) => {
-    if (typeof process.env.GOOGLE_ANALYTICS_TRACKING_ID !== 'undefined') {
-        response.json({
-            status: 'success',
-            gaTrackingId: process.env.GOOGLE_ANALYTICS_TRACKING_ID,
-        });
-        return;
-    }
-    response.json({ status: 'failed', gaTrackingId: false });
-});
+app.get('/api/v1/clothing/:schoolId', async (request, response) => {
+    const { schoolId } = request.params;
+    const school = await getSchool(parseInt(schoolId));
 
-app.get('/api/v1/weekday', (request, response) => {
-    response.json({ weekDay: weekDay() });
-});
+    const { lat, lon } = school.data;
+    const forecast = await fetchForecast(lon, lat);
 
-app.get('/api/v1/clothing', (request, response) => {
-    getForecast().then(forecast => {
-        // if (forecast) {
-        //     response.json(forecast);
-        //     return;
-        // }
-        if (forecast.rain) {
-            response.json({ weather: 'rain', weatherString: 'Det verkar vara regnigt ute. 🌧️' });
-            return;
-        }
-
-        if (forecast.temprature > 15) {
-            response.json({ weather: 'hot', weatherString: 'Det verkar vara varmt ute. ☀️' });
-        } else if (forecast.temprature > 10) {
-            response.json({ weather: 'neutral', weatherString: 'Det verkar vara lite svalt ute.' });
-        } else {
-            response.json({ weather: 'cold', weatherString: 'Det verkar vara kallt ute. 🥶' });
-        }
-    });
-});
-
-app.post('/api/v1/text2Speech', (request, response) => {
-    const { text } = request.body;
-
-    if (typeof text !== 'string' || text.length <= 0) {
-        response.json({ status: 'failed' });
-        return;
-    }
-
-    googleText2Speech(text).then(result => {
-        response.json(result);
-    });
+    response.json(forecast);
 });
 
 const PORT = process.env.PORT || 5000;
