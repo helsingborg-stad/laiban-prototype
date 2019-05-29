@@ -10,13 +10,27 @@ export default class SpeechBubbles extends Component {
         onEnd: PropTypes.func,
     };
 
+    state = {
+        showChildren: false,
+    };
+
+    onEndCallback = () => {
+        const { content, onEnd, children } = this.props;
+
+        if (typeof onEnd === 'function') {
+            onEnd();
+        }
+        this.setState({ showChildren: true });
+    };
+
     render() {
-        const { content, onEnd } = this.props;
+        const { content, children } = this.props;
+        const { showChildren } = this.state;
         return (
             <div className="container-small">
                 <Manuscript
                     content={content}
-                    onEnd={onEnd}
+                    onEnd={this.onEndCallback}
                     render={data =>
                         data.pieces.length > 0
                             ? data.pieces.map(piece => {
@@ -38,6 +52,7 @@ export default class SpeechBubbles extends Component {
                             : null
                     }
                 />
+                {showChildren && children}
             </div>
         );
     }
