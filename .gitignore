@@ -25,6 +25,7 @@ Thumbs.db
 *.log
 *.sql
 *.sqlite
+schools.json
 
 # ignore compiled files
 *.com
