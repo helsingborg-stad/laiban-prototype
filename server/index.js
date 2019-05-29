@@ -30,8 +30,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Static assets
-app.use(netjet({ cache: { maxAge: 300000 } }));
-app.use(express.static(`${process.cwd()}/public`));
+// app.use(netjet(true, { cache: { maxAge: 300000 } }));
+app.use(express.static(`${process.cwd()}/public`, { maxage: '2h' }));
 
 // Static
 app.get('/', (request, response) => {
