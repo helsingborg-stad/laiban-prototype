@@ -57,11 +57,11 @@ export default class Manuscript extends Component {
         const { audioPiece, pieces } = this.state;
         const { render } = this.props;
         return (
-            <div>
+            <>
                 {typeof render === 'function' ? render(this.state) : null}
 
                 {audioPiece.length > 0 ? <Speech text={audioPiece} onEnd={this.nextPiece} /> : null}
-            </div>
+            </>
         );
     }
 }

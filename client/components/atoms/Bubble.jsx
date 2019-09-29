@@ -7,17 +7,27 @@ export default class Bubble extends Component {
         image: PropTypes.string,
         children: PropTypes.string,
         speechBubble: PropTypes.bool,
+        compact: PropTypes.bool,
     };
 
     static defaultProps = {
         speechBubble: false,
+        compact: false,
     };
 
     render() {
-        const { speechBubble, children, icon, image } = this.props;
+        const { compact, speechBubble, children, icon, image } = this.props;
+
+        const classes = [];
+
+        classes.push(speechBubble ? 'speech-bubble' : 'bubble');
+
+        if (compact) {
+            classes.push('bubble--compact');
+        }
 
         return (
-            <div className={speechBubble ? 'speech-bubble' : 'bubble'}>
+            <div className={classes.join(' ')}>
                 {icon ? (
                     <div className="bubble__icon">
                         <img src={icon} />

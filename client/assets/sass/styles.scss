@@ -200,7 +200,15 @@ a {
     margin-top: $base * 6;
 }
 
-
+.bubble.bubble--compact {
+    flex-direction: column;
+    font-size: 22px;
+    padding: 24px 24px;
+    .bubble__icon {
+        margin-right: 0;
+        margin-bottom: 8px;
+    }
+}
 
 .laiban-large {
     background-size: contain;

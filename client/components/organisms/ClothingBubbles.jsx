@@ -16,19 +16,30 @@ class ClothingBubbles extends Component {
         const { weather, onEnd } = this.props;
         return (
             <div className="container-small">
-                <Manuscript
-                    content={CLOTHING_SETS[weather]}
-                    onEnd={onEnd}
-                    render={data =>
-                        data.pieces.length > 0
-                            ? data.pieces.map((garment, index) => (
-                                  <Bubble key={`${index}-${garment}`} icon={garment.image}>
-                                      {garment.text}
-                                  </Bubble>
-                              ))
-                            : null
-                    }
-                />
+                <Grid container spacing={32}>
+                    <Manuscript
+                        content={CLOTHING_SETS[weather]}
+                        onEnd={onEnd}
+                        render={data =>
+                            data.pieces.length > 0
+                                ? data.pieces.map((garment, index) => (
+                                      <Grid
+                                          item
+                                          xs={data.pieces.length > 4 ? 6 : 12}
+                                          key={`${index}-${garment}`}
+                                      >
+                                          <Bubble
+                                              icon={garment.image}
+                                              compact={data.pieces.length > 4}
+                                          >
+                                              {garment.text}
+                                          </Bubble>
+                                      </Grid>
+                                  ))
+                                : null
+                        }
+                    />
+                </Grid>
             </div>
         );
     }
