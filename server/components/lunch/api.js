@@ -1,12 +1,26 @@
 const express = require('express');
 const { getSchoolResourceByDate } = require('../school/getSchoolResourceByDate');
+const { getSchool } = require('../school/getSchool');
 
 const routes = () => {
     const router = express.Router();
 
     router.get('/:schoolId', async (request, response) => {
         const { schoolId } = request.params;
-        const todaysLunch = await getSchoolResourceByDate(parseInt(schoolId), 'lunchMenu');
+        let todaysLunch = await getSchoolResourceByDate(parseInt(schoolId), 'lunch_menu');
+
+        // Get global lunch menu
+        if (todaysLunch.error) {
+            const { data } = await getSchool(parseInt(schoolId));
+
+            if (data.enable_global_lunch_menu && data.lunch_menu_global) {
+                todaysLunch = await getSchoolResourceByDate(
+                    parseInt(schoolId),
+                    'lunch_menu_global'
+                );
+            }
+        }
+
         const todaysLunchScript = [];
 
         if (typeof todaysLunch.dishes !== 'undefined' && todaysLunch.dishes.length > 0) {
