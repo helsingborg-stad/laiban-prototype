@@ -29,21 +29,28 @@ const routes = () => {
             forecast = await fetchForecast();
         }
 
-        if (forecast.rain) {
+        if (forecast.rain && forecast.temprature > 15) {
             return response.json({
                 weather: 'rain',
                 weatherString: 'Det verkar vara regnigt ute. 🌧️',
             });
         }
 
-        if (forecast.temprature > 15) {
+        if (forecast.rain) {
+            return response.json({
+                weather: 'rainCold',
+                weatherString: 'Det verkar vara kallt och regnigt ute. 🥶 🌧️',
+            });
+        }
+
+        if (forecast.temprature >= 20) {
             return response.json({
                 weather: 'hot',
                 weatherString: 'Det verkar vara varmt ute. ☀️',
             });
         }
 
-        if (forecast.temprature > 10) {
+        if (forecast.temprature >= 16) {
             return response.json({
                 weather: 'neutral',
                 weatherString: 'Det verkar vara lite svalt ute.',
